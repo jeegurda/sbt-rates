@@ -8,9 +8,9 @@ This single widget can run in 3 different modes. Live version:
 
 [Currency mode](http://www.sberbank.ru/ru/quotes/currencies)
 
-[Metals mode](http://www.sberbank.ru/ru/quotes/currencies)
+[Metals mode](http://www.sberbank.ru/ru/quotes/metal)
 
-[Converter mode](http://www.sberbank.ru/ru/quotes/currencies)
+[Converter mode](http://www.sberbank.ru/ru/quotes/converter)
 
 ## Running locally
 

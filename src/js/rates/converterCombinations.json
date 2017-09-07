@@ -1,0 +1,119 @@
+{
+    "card": {
+        "card": {
+            "ibank": {
+                "empty": 1,
+                "premier": 1,
+                "first": 1
+            },
+            "office": {
+                "empty": 1,
+                "premier": 1,
+                "first": 1
+            },
+            "atm": {
+                "empty": 1,
+                "premier": 1,
+                "first": 1
+            }
+        },
+        "account": {
+            "ibank": {
+                "empty": 1,
+                "premier": 1,
+                "first": 1
+            },
+            "office": {
+                "empty": 1,
+                "premier": 2,
+                "first": 3
+            },
+            "atm": {
+                "empty": 1,
+                "premier": 1,
+                "first": 1
+            }
+        },
+        "cash": {
+            "office": {
+                "empty": 1,
+                "premier": 1,
+                "first": 1
+            },
+            "atm": {
+                "empty": 1,
+                "premier": 1,
+                "first": 1
+            }
+        }
+    },
+    "account": {
+        "card": {
+            "ibank": {
+                "empty": 1,
+                "premier": 2,
+                "first": 3
+            },
+            "office": {
+                "empty": 0,
+                "premier": 2,
+                "first": 3
+            },
+            "atm": {
+                "empty": 1,
+                "premier": 1,
+                "first": 1
+            }
+        },
+        "account": {
+            "ibank": {
+                "empty": 1,
+                "premier": 2,
+                "first": 3
+            },
+            "office": {
+                "empty": 0,
+                "premier": 2,
+                "first": 3
+            },
+            "atm": {
+                "empty": 1,
+                "premier": 1,
+                "first": 1
+            }
+        },
+        "cash": {
+            "office": {
+                "empty": 0,
+                "premier": 2,
+                "first": 3
+            }
+        }
+    },
+    "cash": {
+        "card": {
+            "office": {
+                "empty": 0
+            },
+            "atm": {
+                "empty": 1,
+                "premier": 1,
+                "first": 1
+            }
+        },
+        "account": {
+            "office": {
+                "empty": 0,
+                "premier": 2,
+                "first": 3
+            }
+        },
+        "cash": {
+            "office": {
+                "empty": 0,
+                "premier": 0,
+                "first": 0
+            }
+        }
+    }
+}

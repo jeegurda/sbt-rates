@@ -4,6 +4,13 @@ React widget for currency rates used at sberbank.ru
 
 *This repo includes a standalone version, which tries to emulate real environment at sberbank.ru with global variables and what not.*
 
+This signle widget can run in 3 different modes. Live version:
+
+[Currency mode](http://www.sberbank.ru/ru/quotes/currencies)
+
+[Metals mode](http://www.sberbank.ru/ru/quotes/currencies)
+
+[Converter mode](http://www.sberbank.ru/ru/quotes/currencies)
 
 ## Running locally
 

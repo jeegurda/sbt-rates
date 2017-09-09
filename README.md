@@ -30,7 +30,7 @@ $ node express/server.js
 
 4. Run a webpack dev server. Make sure port :8080 isn't busy, requests get proxied to Express only at this port.
 ```bash
-$ npm run dev
+$ npm run dev-open
 ```
 
 5. Give webpack some time to compile bundle for the first time.

@@ -22,13 +22,27 @@ export let requestDetails = () => (dispatch, getState) => {
 };
 
 export let requestInitial = () => (dispatch, getState) => {
-    return Promise.all([
-        dispatch( actions.requestInfo() ),
-        dispatch( actions.requestCurrent(true) ),
-        dispatch( actions.requestDetails() )
-    ]).then(() => {
-        dispatch( actions.setLoading(false) );
-    }).catch(() => {
-        dispatch( actions.setLoading(false) );
-    });
+    dispatch( actions.loading(true) );
+
+    return dispatch( actions.requestInfo() )
+        .catch(() => {
+            dispatch({
+                type: 'ERROR',
+                payload: {
+                    info: true
+                }
+            });
+            return Promise.reject();
+        })
+        .then( () => Promise.all([
+            dispatch( actions.requestCurrent(true) ),
+            dispatch( actions.requestDetails() )
+        ]) )
+        .then(() => {
+            dispatch( actions.loaded(true) );
+            dispatch( actions.loading(false) );
+        })
+        .catch(() => {
+            dispatch( actions.loading(false) );
+        });
 }

@@ -10,8 +10,9 @@ import CurrentExchangeNote from './ratesCurrentExchangeNote';
 class Current extends React.Component {
     render() {
         let { dict, data, mode, destinationCurrency, latestChange, dateFormat } = this.props;
+        let currentData = utils.getCodes(data, 'checked');
 
-        if (utils.getCodes(data, 'checked').some(el => data[el].ratesCurrent)) {
+        if (currentData.some(el => data[el].ratesCurrent)) {
             return (
                 <div className="rates-current rates-right">
                     <div className="current-rates rates-container">
@@ -19,14 +20,14 @@ class Current extends React.Component {
                             <table>
                                 <thead>
                                     <tr>
-                                        <th>{dict['current' + (mode === 'metal' ? 'Metal' : 'Currency')]}</th>
+                                        <th>{dict[`current${mode === 'metal' ? 'Metal' : 'Currency'}`]}</th>
                                         <th>{dict.currentAmount}</th>
                                         <th>{dict.currentBuy}</th>
                                         <th>{dict.currentSell}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {utils.getCodes(data, 'checked').map((el, i) => {
+                                    {currentData.map((el, i) => {
                                         let item = data[el];
                                         let itemRates = item.ratesCurrent;
 
@@ -35,17 +36,11 @@ class Current extends React.Component {
                                             let buyClassName = itemRates.buyChange > 0 ?
                                                 'rates-up'
                                                 :
-                                                (itemRates.buyChange < 0 ?
-                                                    'rates-down'
-                                                    :
-                                                    'rates-none');
+                                                (itemRates.buyChange < 0 ? 'rates-down': 'rates-none');
                                             let sellClassName = itemRates.sellChange > 0 ?
                                                 'rates-up'
                                                 :
-                                                (itemRates.sellChange < 0 ?
-                                                    'rates-down'
-                                                    :
-                                                    'rates-none');
+                                                (itemRates.sellChange < 0 ? 'rates-down': 'rates-none');
                                             let itemTitle;
 
                                             if (mode === 'metal') {

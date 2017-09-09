@@ -1,11 +1,7 @@
 
-let proxy;
-
-if (process.env.NODE_ENV === 'development') {
-    proxy = 'api/';
-} else {
-    proxy = '';
-}
+let host = 'http://localhost';
+let port = 8080;
+let proxy = 'api/'; // anything to prepend to the URL, must be ending with "/"
 
 let restUrlDict = 'portalserver/proxy/?pipe=shortCachePipe&url=http://localhost/sbt-services/services/rest/';
 let restUrlRates = 'portalserver/proxy/?pipe=shortCachePipe&url=http://localhost/rates-web/';
@@ -20,7 +16,7 @@ let rest = {
     dictionary: restUrlDict + 'dictionary/getWidgetSettings'
 };
 
-let getUrl = service => `/${proxy}${rest[service] || ''}`;
+let getUrl = service => `${host}:${port}/${proxy}${rest[service] || ''}`;
 
 export default function api(service, params) {
     if (typeof params === 'object' && Object.keys(params).length > 0) {
@@ -30,7 +26,7 @@ export default function api(service, params) {
                 if (params[c] instanceof Array) {
                     return a.concat( params[c].map(pk => `${c}=${pk}`) );
                 } else {
-                    return a.concat(`${c}=${params[c]}`)
+                    return a.concat(`${c}=${params[c]}`);
                 }
             }, [])
                 .join('&')

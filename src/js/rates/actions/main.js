@@ -2,9 +2,16 @@
 import * as actions from './';
 import * as utils from '../utils';
 
-export let setLoading = state => {
+export let loading = state => {
     return {
         type: 'LOADING',
+        payload: state
+    }
+}
+
+export let loaded = state => {
+    return {
+        type: 'LOADED',
         payload: state
     }
 }

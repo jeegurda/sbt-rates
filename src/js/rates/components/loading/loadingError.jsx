@@ -3,11 +3,11 @@ import { connect }  from 'react-redux';
 
 class LoadingError extends React.Component {
     render() {
-        let error = this.props.error.info;
+        let { dict, error } = this.props;
 
         return (
-            error ?
-                <div>{this.props.dict.loadingError}</div>
+            error.info ?
+                <div>{dict.loadingError}</div>
             :
                 null
         )
@@ -16,7 +16,7 @@ class LoadingError extends React.Component {
 
 export default connect(
     state => ({
+        dict: state.settings.dict,
         error: state.error,
-        dict: state.settings.dict
     })
 )(LoadingError);

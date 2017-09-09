@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": " ./node_modules/.bin/webpack-dev-server --config webpack.dev.js  --open-page \"rates.html\""
+    "dev-open": "webpack-dev-server --config webpack.dev.js  --open-page \"rates.html\"",
+    "dev": "webpack-dev-server --config webpack.dev.js",
+    "build": "webpack --config webpack.dev.js",
+    "build-prod": "webpack --config webpack.prod.js"
   },
   "author": "",
   "license": "ISC",

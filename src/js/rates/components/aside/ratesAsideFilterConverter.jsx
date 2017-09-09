@@ -253,6 +253,6 @@ export default connect(
         changeAmount: e => dispatch( actions.changeAmount(e) ),
         selectCode: e => dispatch( actions.selectCode(e) ),
         changeConverterParams: e => dispatch( actions.changeConverterParams(e) ),
-        changeConverterDate: e => dispatch( actions.changeConverterDate() )
+        changeConverterDate: e => dispatch( actions.changeConverterDate(e) )
     })
 )(AsideFilterConverter);

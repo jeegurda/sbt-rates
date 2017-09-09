@@ -10,12 +10,21 @@ export function settings(settings = {}, action) {
     }
 }
 
-export function loading(loading = true, action) {
+export function loading(loading = false, action) {
     switch (action.type) {
         case 'LOADING':
             return action.payload;
         default:
             return loading;
+    }
+}
+
+export function loaded(loaded = false, action) {
+    switch (action.type) {
+        case 'LOADED':
+            return action.payload;
+        default:
+            return loaded;
     }
 }
 

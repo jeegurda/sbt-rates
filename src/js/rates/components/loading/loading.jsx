@@ -3,11 +3,11 @@ import { connect }  from 'react-redux';
 
 class Loading extends React.Component {
     render() {
-        let loading = this.props.loading;
+        let { loading, dict } = this.props;
 
         return (
             loading ?
-                <div>{this.props.dict.loading}</div>
+                <div>{dict.loading}</div>
             :
                 null
         )

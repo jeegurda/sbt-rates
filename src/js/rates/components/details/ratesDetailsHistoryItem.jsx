@@ -12,8 +12,8 @@ class DetailsHistoryItem extends React.Component {
             // if data for code is missing (no ranges) or plot wasn't built (no data, empty values array, jqplot errors)
             (item.ratesDated === 'NODATA' || item.plot === null) ?
                 <div>
-                    <div key="0">{dict.noData}</div>,
-                    <div id={`plot-${code}`} className="details-item-plot plot-no-data" key="1"></div>
+                    <div>{dict.noData}</div>
+                    <div id={`plot-${code}`} className="details-item-plot plot-no-data"></div>
                 </div>
             :
                 <div className="scroll-content">

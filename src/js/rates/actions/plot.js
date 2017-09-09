@@ -216,7 +216,7 @@ export let drawPlotByCodes = (codes, plots) => (dispatch, getState) => {
                 plots[code] = plot.init();
                 newStateData[code].plot = true;
             } catch(e) {
-                console.warn(`Rates: couldn\'t build the plot for code "${code}"`);
+                console.warn(`Rates: couldn\'t build the plot for code "${code}": ${e}`);
                 plots[code] = null;
                 newStateData[code].plot = null;
             }

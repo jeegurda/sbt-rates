@@ -13,7 +13,6 @@ const host = 'http://www.sberbank.ru';
 
 const cliUrl = 'http://localhost:3000/';
 
-
 mockRouter.get('/static', (req, res) => {
     res.json({
         a: 1,
@@ -26,10 +25,18 @@ mockRouter.get('/staticBad', (req, res) => {
 
 server.use(bodyParser.json());
 
-server.use('/api/', mockRouter, (req, res) => {
-
+server.use('/api', mockRouter, (req, res) => {
+    console.log(req.headers)
+    console.log(_.omit(req.headers, ['host', 'referer', 'origin', , , , , 'accept-language']))
+    let originPort;
+    if (req.headers.origin) {
+        let match = req.headers.origin.match(/:(\d+)/);
+        originPort = match ? match[1] : '80';
+    } else {
+        console.warn('No origin header found. CORS is disabled');
+    }
     request({
-        headers: _.omit(res.headers, ['host', 'referer']),
+        headers: _.omit(req.headers, ['host', 'referer', 'origin', 'accept-encoding']),
         method: req.method,
         uri: host + req.url,
         body: Object.keys(req.body).length > 0 ? req.body : undefined,
@@ -38,22 +45,25 @@ server.use('/api/', mockRouter, (req, res) => {
         simple: false
     })
     .then(function(rRes) {
-        console.log(`${req.method} ${host}${req.url}: ${rRes.statusCode} ${rRes.statusMessage}`);
         res
             .set(rRes.headers)
             .status(rRes.statusCode)
             .send(rRes.body);
+        console.log(`${req.method} ${host}${req.url}: ${rRes.statusCode} ${rRes.statusMessage}`);
     })
     .catch(function (err) {
-        console.log('Failed to send req -', err.toString());
         res.status(503).send('Express couldn\'t send the request: ' + err.toString());
+        console.log('Failed to send req -', err.toString());
     });
-
 });
 
 server.listen(expressPort, () => {
     console.log(`Express listening at port ${expressPort}`);
 });
+
+
+
+// quick send GET requests
 
 process.stdin.on('readable', () => {
     let input = process.stdin.read();

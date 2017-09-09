@@ -46,12 +46,6 @@ export let requestInfo = () => (dispatch, getState) => {
         .catch(err => {
             let reject = genericError => {
                 console.warn(`Rates: failed to fetch ${api('info')} with params`, params, `: ${genericError}`);
-                dispatch({
-                    type: 'ERROR',
-                    payload: {
-                        info: true
-                    }
-                });
                 return Promise.reject(genericError);
             }
             return err.then ? err.then(e => reject(e)) : reject(err);

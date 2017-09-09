@@ -3,11 +3,8 @@ import '@css/rates/jquery.jqplot.min.css';
 
 import './rates.scss';
 
-import Aside from '../aside/ratesAside';
-import Current from '../current/ratesCurrent';
-import Tabs from '../tabs/ratesTabs';
-import Details from '../details/ratesDetails';
-import TableView from '../tableView/ratesTableView';
+
+import Content from '../root/ratesContent';
 import Loading from '../loading/loading';
 import LoadingError from '../loading/loadingError';
 
@@ -125,19 +122,11 @@ class Rates extends React.Component {
             <div className="widget-rates">
                 <LoadingError/>
                 <Loading/>
-                <Current/>
-                <Aside/>
-                <Tabs/>
-                <Details/>
-                <TableView/>
+                <Content/>
             </div>
         )
     }
 }
 
 
-export default connect(
-    state => ({
-        dict: state.settings.dict,
-    })
-)(Rates);
+export default connect()(Rates);

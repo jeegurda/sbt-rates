@@ -1,40 +1,40 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:g="http://www.backbase.com/2008/gadget" xml:lang="en">
-    <head>
-        <title>rates</title>
-        <meta charset="utf-8"/>
-        <link rel="stylesheet" href="./css/rates.css"/>
-        <script src="./rates.js"></script>
-        <g:preferences>
-            <g:preference name="mode" label="Mode" type="select-one" default="currency">
-                <g:enumeration value="currency" label="Currency"/>
-                <g:enumeration value="metal" label="Metal"/>
-                <g:enumeration value="converter" label="Converter"/>
-            </g:preference>
-            <g:preference name="type" label="Type" type="select-one" default="base">
-                <g:enumeration value="base" label="Base"/>
-                <g:enumeration value="beznal" label="Beznal"/>
-                <g:enumeration value="first" label="First"/>
-                <g:enumeration value="premium" label="Premium"/>
-            </g:preference>
-            <g:preference name="firstLinkRu" label="Sberbank1 link Ru" type="text" default="http://sberbank1.ru/"/>
-            <g:preference name="firstLinkEn" label="Sberbank1 link En" type="text" default="http://sberbank1.ru/en/"/>
-            <g:preference name="premierLinkRu" label="Sberbank Premier link Ru" type="text" default="http://sberbank.ru/ru/person/sbpremier/products/tarpln/"/>
-            <g:preference name="premierLinkEn" label="Sberbank Premier link En" type="text" default="http://sberbank.ru/en/individualclients/premier/tarpln/"/>
-            <g:preference name="calculatorLinkRu" label="Calculator link Ru" type="text" default="/ru/quotes/converter"/>
-            <g:preference name="calculatorLinkEn" label="Calculator link En" type="text" default="/en/quotes/converter"/>
-            <g:preference name="calculatorIncomeLinkRu" label="Calculator income link Ru" type="text" default="/ru/quotes/converter"/>
-            <g:preference name="calculatorIncomeLinkEn" label="Calculator income link En" type="text" default="/en/quotes/converter"/>
-            <g:preference name="exchangeNoteLinkRu" label="Exchange note link Ru" type="text" default="/ru/person/additional/operations"/>
-            <g:preference name="exchangeNoteLinkEn" label="Exchange note link En" type="text" default="/en/person/additional/operations"/>
+  <head>
+    <title>rates</title>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="./css/rates.css"/>
+    <script src="./rates.js"></script>
+    <g:preferences>
+      <g:preference name="mode" label="Mode" type="select-one" default="currency">
+        <g:enumeration value="currency" label="Currency"/>
+        <g:enumeration value="metal" label="Metal"/>
+        <g:enumeration value="converter" label="Converter"/>
+      </g:preference>
+      <g:preference name="type" label="Type" type="select-one" default="base">
+        <g:enumeration value="base" label="Base"/>
+        <g:enumeration value="beznal" label="Beznal"/>
+        <g:enumeration value="first" label="First"/>
+        <g:enumeration value="premium" label="Premium"/>
+      </g:preference>
+      <g:preference name="firstLinkRu" label="Sberbank1 link Ru" type="text" default="http://sberbank1.ru/"/>
+      <g:preference name="firstLinkEn" label="Sberbank1 link En" type="text" default="http://sberbank1.ru/en/"/>
+      <g:preference name="premierLinkRu" label="Sberbank Premier link Ru" type="text" default="http://sberbank.ru/ru/person/sbpremier/products/tarpln/"/>
+      <g:preference name="premierLinkEn" label="Sberbank Premier link En" type="text" default="http://sberbank.ru/en/individualclients/premier/tarpln/"/>
+      <g:preference name="calculatorLinkRu" label="Calculator link Ru" type="text" default="/ru/quotes/converter"/>
+      <g:preference name="calculatorLinkEn" label="Calculator link En" type="text" default="/en/quotes/converter"/>
+      <g:preference name="calculatorIncomeLinkRu" label="Calculator income link Ru" type="text" default="/ru/quotes/converter"/>
+      <g:preference name="calculatorIncomeLinkEn" label="Calculator income link En" type="text" default="/en/quotes/converter"/>
+      <g:preference name="exchangeNoteLinkRu" label="Exchange note link Ru" type="text" default="/ru/person/additional/operations"/>
+      <g:preference name="exchangeNoteLinkEn" label="Exchange note link En" type="text" default="/en/person/additional/operations"/>
 
-            <g:preference name="availabilityDateBase" label="Base availability date" type="text" default="01.01.2002"/>
-            <g:preference name="availabilityDateBeznal" label="Beznal availability date" type="text" default="01.01.2002"/>
-            <g:preference name="availabilityDateFirst" label="First availability date" type="text" default="01.01.2002"/>
-            <g:preference name="availabilityDatePremium" label="Premium availability date" type="text" default="01.01.2002"/>
-        </g:preferences>
-    </head>
-    <body g:onload="window.SBT.rates.init(__WIDGET__)" g:onPrefModified="window.SBT.rates.init(__WIDGET__)">
-        <div></div>
-    </body>
+      <g:preference name="availabilityDateBase" label="Base availability date" type="text" default="01.01.2002"/>
+      <g:preference name="availabilityDateBeznal" label="Beznal availability date" type="text" default="01.01.2002"/>
+      <g:preference name="availabilityDateFirst" label="First availability date" type="text" default="01.01.2002"/>
+      <g:preference name="availabilityDatePremium" label="Premium availability date" type="text" default="01.01.2002"/>
+    </g:preferences>
+  </head>
+  <body g:onload="window.SBT.rates.init(__WIDGET__)" g:onPrefModified="window.SBT.rates.init(__WIDGET__)">
+    <div></div>
+  </body>
 </html>

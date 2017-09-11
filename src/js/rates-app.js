@@ -1,4 +1,3 @@
-
 import 'file-loader?name=[name].[ext]!extract-loader!@root/src/templates/rates.html';
 import '@css/rates/main.scss';
 

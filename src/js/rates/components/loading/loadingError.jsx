@@ -1,22 +1,20 @@
-
-import { connect }  from 'react-redux';
+import { connect } from 'react-redux';
 
 class LoadingError extends React.Component {
-    render() {
-        let error = this.props.error.info;
+  render() {
+    let { dict, error } = this.props;
 
-        return (
-            error ?
-                <div>{this.props.dict.loadingError}</div>
-            :
-                null
-        )
-    }
+    return (
+      error.info ?
+        <div>{dict.loadingError}</div> :
+        null
+    );
+  }
 }
 
 export default connect(
-    state => ({
-        error: state.error,
-        dict: state.settings.dict
-    })
+  state => ({
+    dict: state.settings.dict,
+    error: state.error,
+  })
 )(LoadingError);

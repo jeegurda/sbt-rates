@@ -2,64 +2,84 @@ const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const webpack = require('webpack');
 
-module.exports = {
+module.exports = env => {
+  let eslintConfig = env && env['lint-config'] === 'dev' ? 'dev' : 'strict';
+
+  return {
     entry: {
-        libs: ['babel-polyfill'],
-        rates: './src/js/rates-app.js'
+      libs: ['babel-polyfill', 'isomorphic-fetch'],
+      rates: './src/js/rates-app.js'
     },
     output: {
-        filename: '[name].js',
-        chunkFilename: '[name].js',
-        path: path.resolve(__dirname, 'dist/assets/'),
-        // publicPath: '/',
-        sourceMapFilename: './maps/[file].map'
+      filename: '[name].js',
+      chunkFilename: '[name].js',
+      path: path.resolve(__dirname, 'dist/assets/'),
+      // publicPath: '/',
+      sourceMapFilename: './maps/[file].map'
     },
     plugins: [
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'libs',
-            minChunks: Infinity
-        }),
-        new CleanWebpackPlugin(['./dist/assets'])
+      new webpack.optimize.CommonsChunkPlugin({
+        name: 'libs',
+        minChunks: Infinity
+      }),
+      new CleanWebpackPlugin(['./dist/assets']),
     ],
     module: {
-        rules: [
-            {
-                test: /\.css/,
-                use: [
-                    'style-loader',
-                    'css-loader'
-                ]
-            }, {
-                test: /\.s[ca]ss$/,
-                use: [
-                    'style-loader',
-                    'css-loader',
-                    'sass-loader'
-                ]
-            }, {
-                test: /\.(gif|png|jpe?g|svg)$/,
-                use: [
-                    'file-loader'
-                ]
-            }, {
-                test: /\.jsx?$/,
-                include: path.resolve(__dirname, 'src'),
-                loader: 'babel-loader'
-            }, {
-                test: /\.html?$/,
-                loader: 'html-loader',
-                options: {
-                    interpolate: true
-                }
+      rules: [
+        {
+          test: /\.css/,
+          use: [
+            'style-loader',
+            'css-loader'
+          ]
+        }, {
+          test: /\.s[ca]ss$/,
+          use: [
+            'style-loader',
+            'css-loader',
+            'sass-loader'
+          ]
+        }, {
+          test: /\.(gif|png|jpe?g|svg)$/,
+          use: [
+            'file-loader'
+          ]
+        }, {
+          test: /\.jsx?$/,
+          include: path.resolve(__dirname, 'src'),
+          use: [
+            'babel-loader'
+          ]
+        }, {
+          test: /\.jsx?$/,
+          exclude: /\/libs\//,
+          use: {
+            loader: 'eslint-loader',
+            options: {
+              formatter: require('eslint-formatter-pretty'),
+              emitWarning: true,
+              configFile: path.resolve(__dirname, `.eslintrc.${eslintConfig}.js`),
             }
-        ]
+          }
+        }, {
+          test: /\.html?$/,
+          loader: 'html-loader',
+          options: {
+            interpolate: true
+          }
+        }
+      ]
     },
     resolve: {
-        extensions: ['*', '.json', '.jsx', '.js'],
-        alias: {
-            '@root': __dirname,
-            '@js': path.resolve(__dirname, './src/js'),
-            '@css': path.resolve(__dirname, './src/css')
-        }
+      extensions: ['*', '.json', '.jsx', '.js'],
+      alias: {
+        '@root': __dirname,
+        '@js': path.resolve(__dirname, './src/js'),
+        '@css': path.resolve(__dirname, './src/css')
+      }
+    },
+    stats: {
+      moduleTrace: false
     }
-};
+  }
+}

@@ -4,10 +4,21 @@ const webpack = require('webpack');
 
 module.exports = env => {
   let eslintConfig = env && env['lint-config'] === 'dev' ? 'dev' : 'strict';
+  let libs = [
+    'babel-polyfill',
+    'isomorphic-fetch',
+    'lodash',
+    'updeep',
+    'moment',
+    'redux',
+    'react-redux',
+    'redux-logger',
+    'redux-thunk'
+  ]
 
   return {
     entry: {
-      libs: ['babel-polyfill', 'isomorphic-fetch'],
+      libs,
       rates: './src/js/rates-app.js'
     },
     output: {

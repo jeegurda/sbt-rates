@@ -1,5 +1,21 @@
 import api from './api';
+import { applyMiddleware, combineReducers, createStore } from 'redux';
+import { Provider } from 'react-redux';
+import { createLogger } from 'redux-logger';
+import thunkMiddleware from 'redux-thunk';
+
 import Rates from './components/root/rates';
+import * as reducers from './reducers/';
+
+let logger = createLogger({
+  duration: true,
+  diff: true,
+  collapsed: true
+});
+
+let reducer = combineReducers(reducers);
+let store = createStore(reducer, applyMiddleware(thunkMiddleware, logger));
+
 
 let missingDict = {
   loading: 'loading...',
@@ -18,7 +34,6 @@ let missingDict = {
   dataAvailabilityDateFirst: '01.01.2002',
   dataAvailabilityDatePremium: '01.01.2002'
 };
-
 
 let settings = {
   // region (77 for Moscow)
@@ -83,24 +98,6 @@ let settings = {
     return {};
   }
 };
-
-
-import { applyMiddleware, combineReducers, createStore } from 'redux';
-import { Provider } from 'react-redux';
-import { createLogger } from 'redux-logger';
-import thunkMiddleware from 'redux-thunk';
-
-import * as reducers from './reducers/';
-
-let logger = createLogger({
-  duration: true,
-  diff: true,
-  collapsed: true
-});
-
-let reducer = combineReducers(reducers);
-let store = createStore(reducer, applyMiddleware(thunkMiddleware, logger));
-
 
 document.addEventListener('DOMContentLoaded', () => {
   fetch(api('dictionary', {

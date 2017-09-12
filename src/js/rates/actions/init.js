@@ -1,4 +1,5 @@
 import moment from 'moment';
+import * as actions from './';
 
 export let init = settings => dispatch => {
   dispatch({
@@ -25,9 +26,16 @@ export let init = settings => dispatch => {
 
   dispatch({
     type: 'DATA',
-    payload: { ...settings.codes }
+    payload: settings.codes
   });
+
+  dispatch(actions.initConverter());
+  dispatch(actions.requestInitial());
 };
+
+export let clearCache = () => ({
+  type: 'CLEAR_CACHE'
+});
 
 export let initUI = () => (dispatch, getState) => {
   let state = getState();

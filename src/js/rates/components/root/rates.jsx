@@ -32,10 +32,6 @@ class Rates extends React.Component {
     dispatch(actions.init(this.props.settings));
 
     dispatch(actions.initUI());
-    dispatch(actions.initConverter());
-
-    dispatch(actions.requestInitial());
-
     dispatch(actions.addDOMEvents());
   }
   initDatepicker(el) {

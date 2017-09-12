@@ -99,6 +99,89 @@ let settings = {
   }
 };
 
+import '@css/controller.scss';
+import * as actions from './actions/';
+
+class AppController extends React.Component {
+  constructor(props) {
+    super(props);
+    this.lang = 'en';
+    this.dict = {
+      en: {
+        language: 'Language',
+        en: 'English',
+        ru: 'Русский',
+        mode: 'Mode',
+        currency: 'Currency',
+        metal: 'Metals',
+        converter: 'Converter',
+        ratesType: 'Exchange type',
+        base: 'Card',
+        beznal: 'ATM',
+        premium: '"Premier"',
+        first: '"First"'
+      },
+      ru: {
+        language: 'Язык',
+        en: 'English',
+        ru: 'Русский',
+        mode: 'Режим',
+        currency: 'Валюта',
+        metal: 'Металлы',
+        converter: 'Калькулятор',
+        ratesType: 'Курс обмена',
+        base: 'Карта',
+        beznal: 'Банкомат',
+        premium: '"Премьер"',
+        first: '"Первый"'
+      }
+    };
+    this.settings = [
+      /*{
+        name: 'language',
+        values: ['en', 'ru']
+      },*/ {
+        name: 'mode',
+        values: [ 'currency', 'metal', 'converter']
+      }, {
+        name: 'ratesType',
+        values: ['base', 'beznal', 'premium', 'first']
+      }
+    ];
+    this.state = {
+      // language: this.settings[0].values[0],
+      mode: this.settings[0].values[0],
+      ratesType: this.settings[1].values[0],
+      language: 'ru'
+    };
+  }
+  onSettingsChange(name, e) {
+    this.setState({ [name]: e.target.value }, () => {
+      store.dispatch(actions.loaded(false));
+      store.dispatch(actions.clearCache());
+      store.dispatch(actions.init({ ...settings, ...this.state }));
+    });
+  }
+  render() {
+    let { dict, state, settings } = this;
+
+    return (
+      <div className="controller">
+        {this.settings.map((set, i) =>
+          <div className="controller-block" key={i}>
+            <span>{dict[state.language][set.name]}</span>
+            <select onChange={ this.onSettingsChange.bind(this, set.name) } value={state[set.name]}>
+              {set.values.map((el, i) =>
+                <option value={el} key={i}>{dict[state.language][el]}</option>
+              )}
+            </select>
+          </div>
+        )}
+      </div>
+    );
+  }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   fetch(api('dictionary', {
     lang: 'ru',
@@ -109,9 +192,12 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(json => {
       settings.dict = { ...settings.dict, ...missingDict, ...json.rates };
       ReactDOM.render(
-        <Provider store={store}>
-          <Rates settings={ settings }/>
-        </Provider>,
+        <div>
+          <AppController/>
+          <Provider store={store}>
+            <Rates settings={ settings }/>
+          </Provider>
+        </div>,
         document.querySelector('#app')
       );
     }).catch(err => err.then ? err.then(e => console.error(e)) : console.error(err));

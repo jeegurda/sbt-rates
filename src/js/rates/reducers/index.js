@@ -93,16 +93,21 @@ export let data = (data = {}, action) => {
   }
 };
 
-export let cachedParams = (cachedParams = {
+
+let emptyCache = {
   converter: {},
   dated: {},
   datedBody: {},
   detailed: {},
   ranges: {}
-}, action) => {
+};
+
+export let cachedParams = (cachedParams = emptyCache, action) => {
   switch (action.type) {
     case 'CACHE_PARAMS':
       return u(action.payload, cachedParams);
+    case 'CLEAR_CACHE':
+      return emptyCache;
     default:
       return cachedParams;
   }

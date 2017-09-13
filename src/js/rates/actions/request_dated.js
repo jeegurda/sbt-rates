@@ -130,6 +130,6 @@ export let requestDated = () => (dispatch, getState) => {
           'and body', postBody, `: ${genericError}`);
         return Promise.reject(genericError);
       };
-      err.then ? err.then(e => reject(e)) : reject(err);
+      return err.then ? err.then(e => reject(e)) : reject(err);
     });
 };

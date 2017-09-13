@@ -1,5 +1,5 @@
 let host = 'http://localhost';
-let port = 8080;
+let port = 3000;
 // anything to prepend to the URL, must be ending with "/"
 let proxy = 'api/';
 

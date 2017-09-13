@@ -23,14 +23,19 @@ This single widget can run in 3 different modes. Live version:
 $ npm i
 ```
 
-3. Run a simple Express server. This is required to proxy local ajax-requests to REST-services at sberbank.ru:80. Make sure port :3000 isn't busy.
+3. Run a simple Express server. This is required to proxy local ajax-requests to REST-services at sberbank.ru:80. The default port is 3000, make sure it's not busy.
 ```bash
 $ node express/server.js
 ```
 
-4. Run a webpack dev server. Make sure port :8080 isn't busy, requests get proxied to Express only at this port.
+4. Run a webpack dev server. The page would open before the bundle has finished building! Give webpack some time to finish bundling.
 ```bash
 $ npm run dev-open
 ```
+----
 
-5. Give webpack some time to compile bundle for the first time.
+You can also build the project to `dist/rates/` directory to serve it from your server. This is required for ajax-requests to work.
+```bash
+$ npm run build
+$ mv dist/rates/ /var/www/some/apache/directory/
+```

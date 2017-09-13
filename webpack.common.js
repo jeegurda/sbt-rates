@@ -14,7 +14,7 @@ module.exports = env => {
     'react-redux',
     'redux-logger',
     'redux-thunk'
-  ]
+  ];
 
   return {
     entry: {
@@ -24,7 +24,7 @@ module.exports = env => {
     output: {
       filename: '[name].js',
       chunkFilename: '[name].js',
-      path: path.resolve(__dirname, 'dist/assets/'),
+      path: path.resolve(__dirname, 'dist/rates/'),
       // publicPath: '/',
       sourceMapFilename: './maps/[file].map'
     },
@@ -33,7 +33,7 @@ module.exports = env => {
         name: 'libs',
         minChunks: Infinity
       }),
-      new CleanWebpackPlugin(['./dist/assets']),
+      new CleanWebpackPlugin(['./dist/rates']),
     ],
     module: {
       rules: [
@@ -93,4 +93,4 @@ module.exports = env => {
       moduleTrace: false
     }
   }
-}
+};

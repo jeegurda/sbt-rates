@@ -1,5 +1,6 @@
 import * as utils from '../utils';
 import moment from 'moment';
+import _ from 'lodash';
 
 export let drawPlotByCodes = (codes, plots) => (dispatch, getState) => {
   let state = getState();
@@ -189,7 +190,7 @@ export let drawPlotByCodes = (codes, plots) => (dispatch, getState) => {
 
     plot.data = plot.getPlotData();
 
-    let newStateData = { ...state.data };
+    let newStateData = _.cloneDeep(state.data);
 
     if (plot.data) {
       try {
@@ -218,7 +219,7 @@ export let drawPlotByCodes = (codes, plots) => (dispatch, getState) => {
     });
 
     dispatch({
-      type: 'DATA',
+      type: 'DATA_PLOT',
       payload: newStateData
     });
   });

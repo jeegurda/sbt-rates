@@ -1,5 +1,6 @@
 import * as actions from './';
 import * as utils from '../utils';
+import _ from 'lodash';
 
 export let loading = state => {
   return {
@@ -68,22 +69,22 @@ export let print = id => dispatch => {
 
 export let toggleRangePopup = (open, code) => (dispatch, getState) => {
   let state = getState();
-  let newStateData = { ...state.data };
+  let newStateData = _.cloneDeep(state.data);
   Object.keys(newStateData).forEach(c => newStateData[c].rangePopupVisible = open ? code === c : false);
 
   dispatch({
-    type: 'DATA',
+    type: 'DATA_UI',
     payload: newStateData
   });
 };
 
 export let changeRange = (code, from) => (dispatch, getState) => {
   let state = getState();
-  let newStateData = { ...state.data };
+  let newStateData = _.cloneDeep(state.data);
   newStateData[code].ranges.forEach(r => r.checked = r.amountFrom === from);
 
   dispatch({
-    type: 'DATA',
+    type: 'DATA_UI',
     payload: newStateData
   });
 
@@ -110,9 +111,10 @@ export let addDOMEvents = () => (dispatch, getState) => {
   });
 };
 
+let plots = {};
+
 export let drawPlot = code => (dispatch, getState) => {
   let state = getState();
-  let plots = {};
 
   dispatch(actions.drawPlotByCodes(code ? [].concat(code) : utils.getCodes(state.data, 'checked'), plots));
 };

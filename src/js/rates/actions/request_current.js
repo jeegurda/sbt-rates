@@ -23,8 +23,7 @@ export let requestCurrent = noDate => (dispatch, getState) => {
     return Promise.resolve();
   }
 
-  let currentProp = noDate ? 'ratesCurrent' : 'ratesDetailed';
-  let currentPropFull = `${currentProp}Full`;
+  let currentPropFull = `${noDate ? 'ratesCurrent' : 'ratesDetailed'}Full`;
 
   let emptyRates = {
     0: {
@@ -36,62 +35,37 @@ export let requestCurrent = noDate => (dispatch, getState) => {
     }
   };
 
-  let newStateData = { ...state.data };
+  let newStateDataDummy = _.cloneDeep(state.data);
 
   requestCodes.forEach(code => {
     // no conflict with data setting requests
-    !newStateData[code] && (newStateData[code] = {});
-    newStateData[code][currentPropFull] = { ...emptyRates };
-
-    Object.defineProperty(newStateData[code], currentProp, {
-      configurable: true,
-      get() {
-        // using 0 if the field is empty
-        let amount = Number(state.converter.amount) || 0;
-        let limits = Object.keys(this[currentPropFull])
-          .map(el => Number(el))
-          .sort((a, b) => a - b);
-
-        let limit;
-
-        for (let i = 0; i < limits.length; i++) {
-          let next = limits[i + 1];
-          if (next) {
-            if (amount < next) {
-              limit = limits[i];
-              break;
-            }
-          } else {
-            limit = limits[i];
-          }
-        }
-        return this[currentPropFull][limit];
-      }
-    });
+    !newStateDataDummy[code] && (newStateDataDummy[code] = {});
+    newStateDataDummy[code][currentPropFull] = _.cloneDeep(emptyRates);
   });
 
   dispatch({
-    type: 'DATA',
-    payload: newStateData
+    type: 'DATA_CURRENT_DUMMY',
+    payload: newStateDataDummy
   });
 
   return fetch(api('current', params))
     .then(res => res.ok ? res.json() : Promise.reject(res.text()))
     .then(json => {
       let latestChange = 0;
-      let newStateDataAsync = { ...newStateData };
+      let state = getState();
+      let newStateData = _.cloneDeep(state.data);
 
       requestCodes.forEach(code => {
         let item = json[state.ratesType][code];
 
         // no conflict with data setting requests
-        !newStateDataAsync[code] && (newStateDataAsync[code] = {});
+        !newStateData[code] && (newStateData[code] = {});
 
         if (item) {
           Object.keys(item).forEach(l => {
-            !newStateDataAsync[code][currentPropFull] && (newStateDataAsync[code][currentPropFull] = {});
+            !newStateData[code][currentPropFull] && (newStateData[code][currentPropFull] = {});
 
-            newStateDataAsync[code][currentPropFull][l] = {
+            newStateData[code][currentPropFull][l] = {
               buyValue: item[l].buyValue,
               sellValue: item[l].sellValue,
               buyChange: item[l].buyValue - item[l].buyValuePrev,
@@ -104,7 +78,7 @@ export let requestCurrent = noDate => (dispatch, getState) => {
             }
           });
         } else {
-          newStateDataAsync[code][currentPropFull] = { ...emptyRates };
+          newStateData[code][currentPropFull] = { ...emptyRates };
           console.warn(`Rates: no current rates for code ${code} received`);
         }
       });
@@ -124,8 +98,8 @@ export let requestCurrent = noDate => (dispatch, getState) => {
       });
 
       dispatch({
-        type: 'DATA',
-        payload: newStateDataAsync
+        type: 'DATA_CURRENT',
+        payload: newStateData
       });
     })
     .catch(err => {

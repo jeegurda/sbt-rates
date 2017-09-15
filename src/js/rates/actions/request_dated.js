@@ -27,11 +27,11 @@ export let requestDated = () => (dispatch, getState) => {
   utils.getCodes(state.data, 'checked').forEach(code => {
     // if a code doesn't have a range, skip it
     if (!state.data[code].ranges) {
-      let newStateData = { ...state.data };
+      let newStateData = _.cloneDeep(getState().data);
       newStateData[code].ratesDated = 'NODATA';
 
       dispatch({
-        type: 'DATA',
+        type: 'DATA_DATED',
         payload: newStateData
       });
       return;
@@ -48,11 +48,11 @@ export let requestDated = () => (dispatch, getState) => {
     // removing dated rates for every code except checked ones
     utils.getCodes(state.data, 'ratesDated').forEach(code => {
       if (!state.data[code].checked) {
-        let newStateData = { ...state.data };
+        let newStateData = _.cloneDeep(getState().data);
         newStateData[code].ratesDated = null;
 
         dispatch({
-          type: 'DATA',
+          type: 'DATA_DATED',
           payload: newStateData
         });
       }
@@ -84,7 +84,8 @@ export let requestDated = () => (dispatch, getState) => {
   })
     .then(res => res.ok ? res.json() : Promise.reject(res.text()))
     .then(json => {
-      let newStateData = { ...state.data };
+      let state = getState();
+      let newStateData = _.cloneDeep(state.data);
 
       // no conflicts should happen here, this request shouldn't be initial
 
@@ -113,9 +114,10 @@ export let requestDated = () => (dispatch, getState) => {
       });
 
       dispatch({
-        type: 'DATA',
+        type: 'DATA_DATED',
         payload: newStateData
       });
+
       dispatch({
         type: 'CACHE_PARAMS',
         payload: {

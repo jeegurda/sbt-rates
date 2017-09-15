@@ -43,7 +43,7 @@ export let requestDated = () => (dispatch, getState) => {
   });
 
   if (!postBody.currencyData.length) {
-    console.warn('No correct ranges to request dated info');
+    console.warn('Rates: no correct ranges to request dated info');
 
     // removing dated rates for every code except checked ones
     utils.getCodes(state.data, 'ratesDated').forEach(code => {

@@ -78,7 +78,7 @@ export let requestCurrent = noDate => (dispatch, getState) => {
             }
           });
         } else {
-          newStateData[code][currentPropFull] = { ...emptyRates };
+          newStateData[code][currentPropFull] = _.cloneDeep(emptyRates);
           console.warn(`Rates: no current rates for code ${code} received`);
         }
       });

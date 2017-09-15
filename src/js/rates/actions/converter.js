@@ -308,7 +308,7 @@ export let setConverterParams = (params) => (dispatch, getState) => {
       }
       break;
     default:
-      console.warn(`Unknown converter param ${param}`);
+      console.warn(`Rates: unknown converter param ${param}`);
   }
 
   if (availableCombinations === null || finalType === null) {

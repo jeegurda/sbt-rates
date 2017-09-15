@@ -25,7 +25,8 @@ export let getCheckedRange = (itemData) => {
 
 export let getCodes = (data, property, inverse, dontSort) => {
   if (typeof data !== 'object') {
-    debugger;
+    console.warn('Rates: ', data, 'is not an object');
+    return [];
   }
   let codes = Object.keys(data).filter(code => inverse ? !data[code][property] : data[code][property]);
 

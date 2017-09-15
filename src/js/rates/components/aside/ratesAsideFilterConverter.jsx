@@ -22,19 +22,19 @@ class AsideFilterConverter extends React.Component {
   render() {
     let premiumServiceNote;
     let {
-      converter, premiumServiceAllowedCodes, data, dict, destinationCurrency, invalidFields, ui,
+      converter, premiumServiceCodes, data, dict, destinationCurrency, invalidFields, ui,
       updateConverter, changeAmount, selectCode, changeConverterParams, changeConverterDate
     } = this.props;
 
-    // if there is a currency selected which is not in a premiumServiceAllowedCodes array and is not '' (RUR)
+    // if there is a currency selected which is not in a premiumServiceCodes array and is not '' (RUR)
     // for first/premium service types, show a warning
     if (converter.params.servicePack !== 'empty') {
       let wrongCodes = [];
 
-      if (converter.from && premiumServiceAllowedCodes.indexOf(converter.from) !== -1) {
+      if (converter.from && premiumServiceCodes.indexOf(converter.from) !== -1) {
         wrongCodes.push(data[converter.from].isoName);
       }
-      if (converter.to && premiumServiceAllowedCodes.indexOf(converter.to) !== -1) {
+      if (converter.to && premiumServiceCodes.indexOf(converter.to) !== -1) {
         wrongCodes.push(data[converter.to].isoName);
       }
 
@@ -239,7 +239,7 @@ class AsideFilterConverter extends React.Component {
 export default connect(
   state => ({
     converter: state.converter,
-    premiumServiceAllowedCodes: state.settings.premiumServiceAllowedCodes,
+    premiumServiceCodes: state.settings.premiumServiceCodes,
     data: state.data,
     dict: state.settings.dict,
     destinationCurrency: state.settings.destinationCurrency,

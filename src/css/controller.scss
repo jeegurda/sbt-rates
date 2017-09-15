@@ -1,0 +1,16 @@
+#controller {
+  width: 980px;
+  margin: 0 auto 20px;
+  padding: 5px 10px;
+  background: #e0f3e9;
+}
+.controller-block {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 30px;
+  span {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 15px;
+  }
+}

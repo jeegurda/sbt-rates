@@ -1,9 +1,10 @@
 import moment from 'moment';
+import * as actions from './';
 
 export let init = settings => dispatch => {
   dispatch({
     type: 'INIT',
-    payload: settings
+    payload: { ...settings }
   });
 
   dispatch({
@@ -14,7 +15,7 @@ export let init = settings => dispatch => {
   dispatch({
     type: 'SET_CONVERTER',
     payload: {
-      converterAmount: settings.converterAmount
+      amount: settings.converterAmount
     }
   });
 
@@ -24,10 +25,22 @@ export let init = settings => dispatch => {
   });
 
   dispatch({
-    type: 'DATA',
+    type: 'DATA_INIT',
     payload: { ...settings.codes }
   });
+
+  dispatch(actions.initConverter());
+  dispatch(actions.requestInitial());
 };
+
+export let clearCache = () => ({
+  type: 'CLEAR_CACHE'
+});
+
+/*export let clearDate = () => ({
+  type: 'DATA',
+  payload: settings.codes
+});*/
 
 export let initUI = () => (dispatch, getState) => {
   let state = getState();

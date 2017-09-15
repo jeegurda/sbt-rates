@@ -8,10 +8,10 @@ import CurrentExchangeNote from './ratesCurrentExchangeNote';
 
 class Current extends React.Component {
   render() {
-    let { dict, data, mode, destinationCurrency, latestChange, dateFormat } = this.props;
+    let { dict, data, mode, destinationCurrency, latestChange, dateFormat, converterAmount } = this.props;
     let currentData = utils.getCodes(data, 'checked');
 
-    if (currentData.some(el => data[el].ratesCurrent)) {
+    if (currentData.some(el => utils.getCurrentRatesForAmount(data[el].ratesCurrentFull, converterAmount))) {
       return (
         <div className="rates-current rates-right">
           <div className="current-rates rates-container">
@@ -28,7 +28,7 @@ class Current extends React.Component {
                 <tbody>
                   {currentData.map((el, i) => {
                     let item = data[el];
-                    let itemRates = item.ratesCurrent;
+                    let itemRates = utils.getCurrentRatesForAmount(item.ratesCurrentFull, converterAmount);
 
                     // if for some reason checked element wasn't loaded yet (few requests on a slow connection)
                     if (itemRates) {
@@ -106,6 +106,7 @@ export default connect(
     mode: state.settings.mode,
     destinationCurrency: state.settings.destinationCurrency,
     latestChange: state.latestChange,
-    dateFormat: state.settings.dateFormat
+    dateFormat: state.settings.dateFormat,
+    converterAmount: state.converter.amount
   })
 )(Current);

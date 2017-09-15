@@ -16,11 +16,11 @@ module.exports = env => merge(common(env), {
   devtool: 'cheap-module-source-map',
   // watch: true,
   devServer: {
-    contentBase: './dist/assets/',
+    contentBase: './dist/rates/',
     hot: true,
-    proxy: {
+    /*proxy: {
       '/api/*': 'http://localhost:3000'
-    },
+    },*/
     stats: {
       moduleTrace: false
     }

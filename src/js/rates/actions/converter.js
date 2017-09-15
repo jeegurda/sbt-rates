@@ -109,7 +109,7 @@ export let selectCurrency = e => (dispatch, getState) => {
   let target = e.target;
 
   dispatch({
-    type: 'DATA',
+    type: 'DATA_UI',
     payload: u({
       [target.value]: {
         display: true,
@@ -131,11 +131,10 @@ export let changeCodes = e => (dispatch, getState) => {
   // if it's not the last checked checkbox
   if (utils.getCodes(state.data, 'checked').length !== 1 || target.checked) {
     dispatch({
-      type: 'DATA',
-      payload: {
-        ...state.data,
+      type: 'DATA_UI',
+      payload: u({
         [target.name]: { checked: target.checked }
-      }
+      }, state)
     });
 
     dispatch(actions.requestCurrent(true));
@@ -228,8 +227,8 @@ export let selectCode = e => (dispatch, getState) => {
   let state = getState();
 
   let handleSelect = function(curSelect, otherSelect) {
-    let newStateData = { ...state.data };
-    let newStateConverter = { ...state.converter };
+    let newStateData = _.cloneDeep(state.data);
+    let newStateConverter = _.cloneDeep(state.converter);
 
     newStateData[state.converter.from || state.converter.to].checked = false;
 
@@ -244,7 +243,7 @@ export let selectCode = e => (dispatch, getState) => {
     newStateData[newStateConverter.from || newStateConverter.to].checked = true;
 
     dispatch({
-      type: 'DATA',
+      type: 'DATA_UI',
       payload: newStateData
     });
 
@@ -309,7 +308,7 @@ export let setConverterParams = (params) => (dispatch, getState) => {
       }
       break;
     default:
-      console.warn(`Unknown converter param ${param}`);
+      console.warn(`Rates: unknown converter param ${param}`);
   }
 
   if (availableCombinations === null || finalType === null) {

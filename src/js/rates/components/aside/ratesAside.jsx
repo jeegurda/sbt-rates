@@ -5,7 +5,7 @@ import AsideFilterTable from '../aside/ratesAsideFilterTable';
 import { connect } from 'react-redux';
 import * as actions from '../../actions/';
 
-class RatesAside extends React.Component {
+class Aside extends React.Component {
   /*initSelect(el, preCallback) {
     if (!el || el.hasAttribute('data-select-initialized')) {
       return;
@@ -54,4 +54,4 @@ export default connect(
     validateInput: e => dispatch(actions.validateInput(e)),
     requestDetails: () => dispatch(actions.requestDetails()),
   })
-)(RatesAside);
+)(Aside);

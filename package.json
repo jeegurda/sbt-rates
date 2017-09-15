@@ -1,10 +1,9 @@
 {
-  "name": "wp",
+  "name": "Rates",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "A React-redux widget for currency and metal rates provided by sberbank.ru",
+  "main": "src/js/rates-app.js",
   "scripts": {
-    "dev-open": "webpack-dev-server --config webpack.dev.js  --open-page \"rates.html\"",
     "dev": "webpack-dev-server --config webpack.dev.js --env.lint-config dev",
     "dev-strict": "webpack-dev-server --config webpack.dev.js",
     "build": "webpack --config webpack.dev.js",

@@ -4,16 +4,27 @@ const webpack = require('webpack');
 
 module.exports = env => {
   let eslintConfig = env && env['lint-config'] === 'dev' ? 'dev' : 'strict';
+  let libs = [
+    'babel-polyfill',
+    'isomorphic-fetch',
+    'lodash',
+    'updeep',
+    'moment',
+    'redux',
+    'react-redux',
+    'redux-logger',
+    'redux-thunk'
+  ];
 
   return {
     entry: {
-      libs: ['babel-polyfill', 'isomorphic-fetch'],
+      libs,
       rates: './src/js/rates-app.js'
     },
     output: {
       filename: '[name].js',
       chunkFilename: '[name].js',
-      path: path.resolve(__dirname, 'dist/assets/'),
+      path: path.resolve(__dirname, 'dist/rates/'),
       // publicPath: '/',
       sourceMapFilename: './maps/[file].map'
     },
@@ -22,7 +33,7 @@ module.exports = env => {
         name: 'libs',
         minChunks: Infinity
       }),
-      new CleanWebpackPlugin(['./dist/assets']),
+      new CleanWebpackPlugin(['./dist/rates']),
     ],
     module: {
       rules: [
@@ -82,4 +93,4 @@ module.exports = env => {
       moduleTrace: false
     }
   }
-}
+};

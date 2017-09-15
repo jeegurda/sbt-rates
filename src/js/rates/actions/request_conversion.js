@@ -31,6 +31,7 @@ export let requestConversion = () => (dispatch, getState) => {
   return fetch(api('convert', params))
     .then(res => res.ok ? res.text() : Promise.reject(res.text()))
     .then(text => {
+      let state = getState();
       if ($.isNumeric(text)) {
         dispatch({
           type: 'SET_CONVERTER',

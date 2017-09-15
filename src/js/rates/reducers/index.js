@@ -3,7 +3,7 @@ import u from 'updeep';
 export let settings = (settings = {}, action) => {
   switch (action.type) {
     case 'INIT':
-      return action.payload;
+      return { ...action.payload };
     default:
       return settings;
   }
@@ -61,7 +61,7 @@ export let converter = (converter = {
     to: '',
     valid: false
   },
-  converterAmount: null,
+  amount: null,
   from: null,
   to: null,
   dateSelect: 'current'
@@ -87,22 +87,34 @@ export let ratesType = (ratesType = null, action) => {
 export let data = (data = {}, action) => {
   switch (action.type) {
     case 'DATA':
+    case 'DATA_INIT':
+    case 'DATA_UI':
+    case 'DATA_CURRENT':
+    case 'DATA_CURRENT_DUMMY':
+    case 'DATA_DATED':
+    case 'DATA_INFO':
+    case 'DATA_RANGES':
       return action.payload;
     default:
       return data;
   }
 };
 
-export let cachedParams = (cachedParams = {
+
+let emptyCache = {
   converter: {},
   dated: {},
   datedBody: {},
   detailed: {},
   ranges: {}
-}, action) => {
+};
+
+export let cachedParams = (cachedParams = emptyCache, action) => {
   switch (action.type) {
     case 'CACHE_PARAMS':
       return u(action.payload, cachedParams);
+    case 'CLEAR_CACHE':
+      return emptyCache;
     default:
       return cachedParams;
   }

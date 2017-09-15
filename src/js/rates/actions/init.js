@@ -1,7 +1,7 @@
 import moment from 'moment';
 import * as actions from './';
 
-export let init = settings => (dispatch, getState) => {
+export let init = settings => dispatch => {
   dispatch({
     type: 'INIT',
     payload: { ...settings }

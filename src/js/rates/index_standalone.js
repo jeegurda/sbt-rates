@@ -29,14 +29,12 @@ let getSettings = (additionalSettings = {}) => {
           a[code] = { checked: true };
           return a;
         }, {});
-      } else {
-        return { ...settings.codes.currency };
       }
+      return { ...settings.codes.currency };
     } else if (settings.mode === 'converter') {
       return { [settings.sourceCurrencyCode || settings.destCurrencyCode]: { checked: true } };
-    } else {
-      console.warn(`Rates: unknown mode: "${settings.mode}`);
     }
+    console.warn(`Rates: unknown mode: "${settings.mode}`);
   })();
 
   return settings;
@@ -66,7 +64,7 @@ let loadApp = ({ lang = 'ru' } = {}, additionalSettings = {}) =>
       let settings = getSettings(additionalSettings);
       settings.dict = { ...settings.dict, ...json[appName] };
 
-      reducer = combineReducers(reducers)
+      reducer = combineReducers(reducers);
       store = createStore(reducer, applyMiddleware(thunkMiddleware, logger));
 
       ReactDOM.unmountComponentAtNode(appNode);
@@ -128,13 +126,13 @@ class AppController extends React.Component {
     this.settingsMap = [
       {
         name: 'language',
-        values: ['en', 'ru']
+        values: [ 'en', 'ru' ]
       }, {
         name: 'mode',
-        values: [ 'currency', 'metal', 'converter']
+        values: [ 'currency', 'metal', 'converter' ]
       }, {
         name: 'ratesType',
-        values: ['base', 'beznal', 'premium', 'first']
+        values: [ 'base', 'beznal', 'premium', 'first' ]
       }
     ];
 
@@ -158,16 +156,16 @@ class AppController extends React.Component {
         store.dispatch(actions.clearCache());
         // store.dispatch(actions.destroyPlots());
         store.dispatch(actions.init(
-            getSettings({
-              dict: store.getState().settings.dict,
-              ...this.state
-            })
+          getSettings({
+            dict: store.getState().settings.dict,
+            ...this.state
+          })
         ));
       }
     });
   }
   render() {
-    let { dict, state, settings } = this;
+    let { dict, state } = this;
 
     return (
       <div>

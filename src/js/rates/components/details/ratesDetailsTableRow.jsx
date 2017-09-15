@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 
 class DetailsTableRow extends React.Component {
   render() {
-    let { item } = this.props;
+    let { item, converterAmount } = this.props;
 
-    let { ratesDetailed } = item;
+    let ratesDetailed = utils.getCurrentRatesForAmount(item, converterAmount);
     let buyClassName = ratesDetailed.buyChange > 0 ?
       'rates-up' :
       ratesDetailed.buyChange < 0 ? 'rates-down' : 'rates-none';
@@ -43,4 +43,8 @@ class DetailsTableRow extends React.Component {
   }
 }
 
-export default connect()(DetailsTableRow);
+export default connect(
+  state => ({
+    converterAmount: state.converter.amount
+  })
+)(DetailsTableRow);

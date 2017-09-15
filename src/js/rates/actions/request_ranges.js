@@ -31,7 +31,8 @@ export let requestRanges = () => (dispatch, getState) => {
   return fetch(api('ranges', params))
     .then(res => res.ok ? res.json() : Promise.reject(res.text()))
     .then(json => {
-      let newStateData = { ...state.data };
+      let state = getState();
+      let newStateData = _.cloneDeep(state.data);
 
       requestCodes.forEach(code => {
         let item = json[code];
@@ -55,9 +56,10 @@ export let requestRanges = () => (dispatch, getState) => {
       });
 
       dispatch({
-        type: 'DATA',
+        type: 'DATA_RANGES',
         payload: newStateData
       });
+
       dispatch({
         type: 'CACHE_PARAMS',
         payload: {

@@ -3,7 +3,7 @@ import * as utils from '../../utils';
 
 import Item from './ratesDetailsHistoryItem';
 
-class HistoryGraphs extends React.Component {
+class DetailsHistoryGraphs extends React.Component {
   componentDidUpdate() {
     // Rates.initDatepicker(this.refs.filterDatepickerDetailsFrom);
     // Rates.initDatepicker(this.refs.filterDatepickerDetailsTo);
@@ -40,4 +40,4 @@ export default connect(
     printSection: state.printSection,
     mode: state.settings.mode,
   })
-)(HistoryGraphs);
+)(DetailsHistoryGraphs);

@@ -25,7 +25,8 @@ export let getCheckedRange = (itemData) => {
 
 export let getCodes = (data, property, inverse, dontSort) => {
   if (typeof data !== 'object') {
-    // debugger;
+    console.warn('Rates: ', data, 'is not an object');
+    return [];
   }
   let codes = Object.keys(data).filter(code => inverse ? !data[code][property] : data[code][property]);
 
@@ -60,4 +61,27 @@ export let format = valueToFormat => {
     return formatted < 1000 ? formatted : formatted.replace(regExp.thousands, ' ');
   }
   return '—';
+};
+
+export let getCurrentRatesForAmount = (fullCurrentRates, converterAmount) => {
+  // using 0 if the field is empty
+  let amount = Number(converterAmount) || 0;
+  let limits = Object.keys(fullCurrentRates)
+    .map(el => Number(el))
+    .sort((a, b) => a - b);
+
+  let limit;
+
+  for (let i = 0; i < limits.length; i++) {
+    let next = limits[i + 1];
+    if (next) {
+      if (amount < next) {
+        limit = limits[i];
+        break;
+      }
+    } else {
+      limit = limits[i];
+    }
+  }
+  return fullCurrentRates[limit];
 };

@@ -4,11 +4,13 @@ import DetailsTableRow from './ratesDetailsTableRow';
 
 class DetailsTable extends React.Component {
   render() {
-    let { dict, data } = this.props;
+    let { dict, data, converterAmount } = this.props;
 
     return (
       <div className="rates-details">
-        {utils.getCodes(data, 'checked').some(el => data[el].ratesDetailed) &&
+        {utils.getCodes(data, 'checked').some(el =>
+          utils.getCurrentRatesForAmount(data[el].ratesDetailedFull, converterAmount)
+        ) &&
           <div className="rates-details-table">
             <table className="details-table">
               <thead>
@@ -21,7 +23,7 @@ class DetailsTable extends React.Component {
               <tbody>
                 {utils.getCodes(data, 'checked').map((code, i) =>
                   // if it's checked and has something to show
-                  data[code].ratesDetailed ?
+                  utils.getCurrentRatesForAmount(data[code].ratesDetailedFull, converterAmount) ?
                     <DetailsTableRow key={i} item={data[code]}/> :
                     null
                 )}
@@ -42,5 +44,6 @@ export default connect(
   state => ({
     dict: state.settings.dict,
     data: state.data,
+    converterAmount: state.converter.amount
   })
 )(DetailsTable);

@@ -1,4 +1,5 @@
 import api from '../api';
+import _ from 'lodash';
 
 export let requestInfo = () => (dispatch, getState) => {
   let state = getState();
@@ -11,7 +12,8 @@ export let requestInfo = () => (dispatch, getState) => {
     .then(res => res.ok ? res.json() : Promise.reject(res.text()))
     .then(json => {
       if (json.length) {
-        let newData = { ...state.data };
+        let state = getState();
+        let newData = _.cloneDeep(state.data);
 
         json.forEach((el, i) => {
           // no conflict with data setting requests
@@ -31,7 +33,7 @@ export let requestInfo = () => (dispatch, getState) => {
         });
 
         dispatch({
-          type: 'DATA',
+          type: 'DATA_INFO',
           payload: newData
         });
       } else {

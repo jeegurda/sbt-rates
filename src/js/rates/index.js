@@ -68,7 +68,7 @@
           return this.mode === 'converter' ? '100' : '1';
         },
         // currency codes that are allowed for 'first' and 'premium' services
-        premiumServiceAllowedCodes: ['840', '978'],
+        premiumServiceCodes: ['840', '978'],
         // currencies with limited exchange offices (a warning will be shown)
         // GBP, CHF, JPG
         limitedExchangeCodes: ['826', '756', '392'],
@@ -101,7 +101,7 @@
                   };
                 })
                 return o;
-              })({}, this.premiumServiceAllowedCodes);
+              })({}, this.premiumServiceCodes);
             } else {
               return {
                 '840': {

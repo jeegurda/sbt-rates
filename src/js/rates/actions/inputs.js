@@ -10,6 +10,7 @@ export let changeDate = e => (dispatch, getState) => {
   let isDateInvalid = dateString => !moment(dateString, 'D.M.YYYY', true).isValid();
 
   let parseDate = dateString => moment(dateString, 'D.M.YYYY').toDate().getTime();
+  let now = Date.now();
 
   switch (inputType) {
     case 'fromDate':
@@ -20,12 +21,12 @@ export let changeDate = e => (dispatch, getState) => {
     case 'toDate':
       invalidFields[inputType] = isDateInvalid(value) ||
         parseDate(value) < parseDate(state.ui.fromDate) ||
-        parseDate(value) > (new Date()).getTime();
+        parseDate(value) > now.getTime();
       break;
     case 'detailedDate':
       invalidFields[inputType] = isDateInvalid(value) ||
         parseDate(value) < parseDate(state.settings.dict.dataAvailabilityDate) ||
-        parseDate(value) > (new Date()).getTime();
+        parseDate(value) > now.getTime();
       break;
     default:
       console.warn(`Rates: bad date type "${inputType}"`);

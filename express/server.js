@@ -12,6 +12,7 @@ const host = 'http://www.sberbank.ru';
 
 const cliUrl = 'http://localhost:3000/';
 
+// subroutes, useful for mocks
 mockRouter.get('/static', (req, res) => {
   res.json({
     a: 1,
@@ -25,13 +26,19 @@ mockRouter.get('/staticBad', (req, res) => {
 server.use(bodyParser.json());
 
 server.use('/api', mockRouter, (req, res) => {
-  let originPort;
-  if (req.headers.origin) {
-    let match = req.headers.origin.match(/:(\d+)/);
-    originPort = match ? match[1] : '80';
-  } else {
-    console.warn('No origin header found. CORS is disabled');
+  // for hosts that can't handle the OPTIONS preflight request
+  if (req.method === 'OPTIONS') {
+    res
+      .set({
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type'
+      })
+      .status(200)
+      .send();
+    return;
   }
+
   request({
     headers: _.omit(req.headers, ['host', 'referer', 'origin', 'accept-encoding']),
     method: req.method,
@@ -59,8 +66,7 @@ server.listen(expressPort, () => {
 });
 
 
-
-// quick send GET requests
+// quick send GET requests from STDIN
 
 process.stdin.on('readable', () => {
   let input = process.stdin.read();

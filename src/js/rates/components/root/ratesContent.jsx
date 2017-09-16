@@ -8,7 +8,7 @@ import TableView from '../tableView/ratesTableView';
 
 class Content extends React.Component {
   render() {
-    let loaded = this.props.loaded;
+    let { loaded } = this.props;
 
     // it's important to add a "key" prop here so when rebuilding the structure
     // the plot div wouldn't be re-rendered losing all svg data

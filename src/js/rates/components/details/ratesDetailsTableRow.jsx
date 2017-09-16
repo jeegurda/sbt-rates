@@ -5,7 +5,7 @@ class DetailsTableRow extends React.Component {
   render() {
     let { item, converterAmount } = this.props;
 
-    let ratesDetailed = utils.getCurrentRatesForAmount(item, converterAmount);
+    let ratesDetailed = utils.getCurrentRatesForAmount(item.ratesCurrentFull, converterAmount);
     let buyClassName = ratesDetailed.buyChange > 0 ?
       'rates-up' :
       ratesDetailed.buyChange < 0 ? 'rates-down' : 'rates-none';

@@ -19,7 +19,7 @@ import LoadingError from '../loading/loadingError';
 class Rates extends React.Component {
   constructor(props) {
     super(props);
-    let { dispatch } = this.props;
+    let { dispatch, settings } = this.props;
 
     /*
 
@@ -29,7 +29,7 @@ class Rates extends React.Component {
     this.plugins = {select, popup};
     */
 
-    dispatch(actions.init(this.props.settings));
+    dispatch(actions.init(settings));
 
     dispatch(actions.initUI());
     dispatch(actions.addDOMEvents());

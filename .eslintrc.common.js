@@ -4,6 +4,7 @@ module.exports = {
     es6: true,
     jquery: true
   },
+  extends: ['plugin:react/recommended'],
   parserOptions: {
     ecmaVersion: 2017,
     sourceType: 'module',

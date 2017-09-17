@@ -90,7 +90,9 @@ module.exports = env => {
       }
     },
     stats: {
-      moduleTrace: false
+      modules: false,
+      moduleTrace: false,
+      assetsSort: "name"
     }
   }
 };

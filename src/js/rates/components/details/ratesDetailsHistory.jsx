@@ -14,14 +14,14 @@ class DetailsHistory extends React.Component {
 
     return (
       <div className="rates-details">
-        {loaded && <ConverterPeriod/>}
-        <HistoryGraphs/>
-        {loaded &&
+        { loaded && <ConverterPeriod /> }
+        <HistoryGraphs />
+        { loaded &&
           <div className="rates-details-availability-note">
             <p>
-              {dict.dataAvailability}
-              <span> </span>
-              {dict[`dataAvailabilityDate${utils.capitalize(ratesType)}`]}
+              { dict.dataAvailability }
+              <span>{ ' ' }</span>
+              { dict[`dataAvailabilityDate${utils.capitalize(ratesType)}`] }
             </p>
           </div>
         }

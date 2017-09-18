@@ -68,8 +68,8 @@ let loadApp = ({ lang = 'ru' } = {}, additionalSettings = {}) =>
 
       ReactDOM.unmountComponentAtNode(appNode);
       ReactDOM.render(
-        <Provider store={store}>
-          <Rates settings={settings}/>
+        <Provider store={ store }>
+          <Rates settings={ settings } />
         </Provider>,
         appNode
       );
@@ -78,7 +78,7 @@ let loadApp = ({ lang = 'ru' } = {}, additionalSettings = {}) =>
 shared.loadApp = loadApp;
 
 let loadController = () => {
-  ReactDOM.render(<AppController shared={shared}/>, controllerNode);
+  ReactDOM.render(<AppController shared={ shared } />, controllerNode);
 };
 
 document.addEventListener('DOMContentLoaded', () => {

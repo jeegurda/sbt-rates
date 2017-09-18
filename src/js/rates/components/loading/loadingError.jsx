@@ -6,7 +6,7 @@ class LoadingError extends React.Component {
 
     return (
       error.info ?
-        <div>{dict.loadingError}</div> :
+        <div>{ dict.loadingError }</div> :
         null
     );
   }

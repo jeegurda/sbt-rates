@@ -34,6 +34,17 @@ class Rates extends React.Component {
     dispatch(actions.initUI());
     dispatch(actions.addDOMEvents());
   }
+  componentDidMount() {
+    /*var self = this;
+
+    $(document.body)
+      .on('click', '.filter-datepicker-trigger', function() {
+        $(this).prev('input').focus();
+      })
+      .on('click', '.converter-datepicker-hide', function() {
+        $(self.DOM.converterDate).datepicker('hide');
+      });*/
+  }
   initDatepicker(el) {
     let that = this;
     if (!el) {
@@ -94,24 +105,12 @@ class Rates extends React.Component {
       } });
     }
   }
-  componentDidMount() {
-    /*var self = this;
-
-    $(document.body)
-      .on('click', '.filter-datepicker-trigger', function() {
-        $(this).prev('input').focus();
-      })
-      .on('click', '.converter-datepicker-hide', function() {
-        $(self.DOM.converterDate).datepicker('hide');
-      });*/
-
-  }
   render() {
     return (
       <div className="widget-rates">
-        <LoadingError/>
-        <Loading/>
-        <Content/>
+        <LoadingError />
+        <Loading />
+        <Content />
       </div>
     );
   }

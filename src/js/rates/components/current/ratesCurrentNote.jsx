@@ -14,11 +14,9 @@ class CurrentNote extends React.Component {
 
       note =
         <div className="current-rates-note rates-note">
-          <strong>{dict.currentNoteBold}</strong>
-          <span> </span>
-          <span dangerouslySetInnerHTML={{
-            __html: noteText.format(noteLink)
-          }}></span>
+          <strong>{ dict.currentNoteBold }</strong>
+          <span>{ ' ' }</span>
+          <span dangerouslySetInnerHTML={ { __html: noteText.format(noteLink) } } />
         </div>;
     } else {
       note = null;

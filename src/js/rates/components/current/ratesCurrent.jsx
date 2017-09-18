@@ -19,15 +19,15 @@ class Current extends React.Component {
               <table>
                 <thead>
                   <tr>
-                    <th>{dict[`current${mode === 'metal' ? 'Metal' : 'Currency'}`]}</th>
-                    <th>{dict.currentAmount}</th>
-                    <th>{dict.currentBuy}</th>
-                    <th>{dict.currentSell}</th>
+                    <th>{ dict[`current${mode === 'metal' ? 'Metal' : 'Currency'}`] }</th>
+                    <th>{ dict.currentAmount }</th>
+                    <th>{ dict.currentBuy }</th>
+                    <th>{ dict.currentSell }</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {currentData.map((el, i) => {
-                    let item = data[el];
+                  { currentData.map(code => {
+                    let item = data[code];
                     let itemRates = utils.getCurrentRatesForAmount(item.ratesCurrentFull, converterAmount);
 
                     // if for some reason checked element wasn't loaded yet (few requests on a slow connection)
@@ -45,7 +45,7 @@ class Current extends React.Component {
                       } else {
                         itemTitle = [
                           item.isoName,
-                          <em key={1}> / {destinationCurrency}</em>
+                          <em key="0"> / { destinationCurrency }</em>
                         ];
                       }
 
@@ -61,37 +61,37 @@ class Current extends React.Component {
                           null;
 
                       return (
-                        <tr key={i}>
-                          <td>{itemTitle}</td>
-                          <td>{itemRates.scale}</td>
-                          <td title={buyTitle}>
-                            <span className={buyClassName}>
-                              {utils.format(itemRates.buyValue)}
+                        <tr key={ code }>
+                          <td>{ itemTitle }</td>
+                          <td>{ itemRates.scale }</td>
+                          <td title={ buyTitle }>
+                            <span className={ buyClassName }>
+                              { utils.format(itemRates.buyValue) }
                             </span>
                           </td>
-                          <td title={sellTitle}>
-                            <span className={sellClassName}>
-                              {utils.format(itemRates.sellValue)}
+                          <td title={ sellTitle }>
+                            <span className={ sellClassName }>
+                              { utils.format(itemRates.sellValue) }
                             </span>
                           </td>
                         </tr>
                       );
                     }
                     return null;
-                  })}
+                  }) }
                 </tbody>
               </table>
             </div>
             <div className="current-info">
-              {dict.currentInfo.format(
+              { dict.currentInfo.format(
                 dict[`currentInfo${utils.capitalize(mode)}`],
                 moment(latestChange).format(`${dateFormat} H:mm`)
-              )}
+              ) }
             </div>
           </div>
-          <CurrentNote/>
-          <CurrentExchangeNote/>
-          <CurrentLinks/>
+          <CurrentNote />
+          <CurrentExchangeNote />
+          <CurrentLinks />
         </div>
       );
     }

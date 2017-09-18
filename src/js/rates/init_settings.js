@@ -4,7 +4,7 @@ export default {
   // language: 'en' or 'ru'
   language: 'ru',
   // widget mode: 'metal' or 'currency' or 'converter'
-  mode: 'currency',
+  mode: 'converter',
   // rates type: 'base' or 'beznal' or 'premium' or 'first'
   ratesType: 'base',
   // date format for moment.js

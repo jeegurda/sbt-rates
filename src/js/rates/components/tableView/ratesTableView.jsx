@@ -5,7 +5,7 @@ class TableView extends React.Component {
   render() {
     return (
       this.props.tableView ?
-        <TableViewModal/> :
+        <TableViewModal /> :
         null
     );
   }

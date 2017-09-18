@@ -11,18 +11,18 @@ class DetailsHistoryRangeSelect extends React.Component {
       item.ranges.length > 1 ?
         <div className="rl-right">
           <span onClick={ toggleRangePopup.bind(null, true, code) }>
-            {dict.detailsSelectRange}
+            { dict.detailsSelectRange }
           </span>
-          <div className={`rates-container rl-range${item.rangePopupVisible ? ' visible' : ''}`}>
-            <p>{dict.detailsSelectRange}</p>
+          <div className={ `rates-container rl-range${item.rangePopupVisible ? ' visible' : ''}` }>
+            <p>{ dict.detailsSelectRange }</p>
             <p>
               { utils.getRangesDescription(item.ranges, dict).map((el, j) =>
                 <span
                   onClick={ changeRange.bind(null, code, item.ranges[j].amountFrom) }
                   className={ item.ranges[j].checked ? 'checked' : '' }
-                  key={j}
+                  key={ item.ranges[j].amountFrom }
                 >
-                  {el}
+                  { el }
                 </span>
               ) }
             </p>

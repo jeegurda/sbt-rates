@@ -15,14 +15,14 @@ class Content extends React.Component {
     return (
       loaded ?
         <div>
-          <Current/>
-          <Aside/>
-          <Tabs/>
-          <Details key="1"/>
-          <TableView/>
+          <Current />
+          <Aside />
+          <Tabs />
+          <Details key="1" />
+          <TableView />
         </div> :
         <div>
-          <Details key="1"/>
+          <Details key="1" />
         </div>
     );
   }

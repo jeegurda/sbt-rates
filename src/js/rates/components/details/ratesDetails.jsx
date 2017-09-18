@@ -8,14 +8,14 @@ class Details extends React.Component {
     let { viewMode } = this.props;
 
     if (viewMode === 'history') {
-      details = <DetailsHistory/>;
+      details = <DetailsHistory />;
     } else if (viewMode === 'table') {
-      details = <DetailsTable/>;
+      details = <DetailsTable />;
     }
 
     return (
       <div className="rates-right">
-        {details}
+        { details }
       </div>
     );
   }

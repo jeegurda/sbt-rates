@@ -22,9 +22,7 @@ class CurrentExchangeNote extends React.Component {
 
       exchangeNote =
         <div className="current-rates-note rates-note">
-          <span dangerouslySetInnerHTML={{
-            __html: dict.exchangeNote.format(exchangeNoteLink)
-          }}></span>
+          <span dangerouslySetInnerHTML={ { __html: dict.exchangeNote.format(exchangeNoteLink) } } />
         </div>;
     } else {
       exchangeNote = null;

@@ -10,37 +10,35 @@ class DetailsHistoryConverterPeriod extends React.Component {
       mode === 'converter' ?
         <div className="rates-details-period">
           <div className="rates-details-period-title">
-            {data[converter.from || converter.to].isoName}
+            { data[converter.from || converter.to].isoName }
             <em>
               /
-              {destinationCurrency}
+              { destinationCurrency }
             </em>
           </div>
           <div className="rates-details-period-datepicker">
             <div className="rates-details-period-datepicker-line">
-              {[ 'from', 'to' ].map((el, i) =>
+              { [ 'from', 'to' ].map(el =>
                 [
-                  <p key={`${el}${i}0`}>{dict[`filter${utils.capitalize(el)}`]}</p>,
-                  <div className="filter-datepicker input" key={`${el}${i}1`}>
+                  <p key={ `${el}0` }>{ dict[`filter${utils.capitalize(el)}`] }</p>,
+                  <div className="filter-datepicker input" key={ `${el}1` }>
                     <input
-                      className={invalidFields[`${el}Date`] && 'invalid' || null}
-                      name={`filter-datepicker-details-${el}`}
-                      data-property={`${el}Date`}
-                      value={`${ui[`${el}Date`]}`}
+                      className={ invalidFields[`${el}Date`] && 'invalid' || null }
+                      name={ `filter-datepicker-details-${el}` }
+                      data-property={ `${el}Date` }
+                      value={ `${ui[`${el}Date`]}` }
                       onChange={ changeDate }
                       onBlur={ validateInput }
-                      ref={`filterDatepickerDetails${utils.capitalize(el)}`}
+                      ref={ `filterDatepickerDetails${utils.capitalize(el)}` }
                       maxLength="10"
                     />
-                    <span className="filter-datepicker-trigger"/>
+                    <span className="filter-datepicker-trigger" />
                   </div>
                 ]
-              )}
+              ) }
             </div>
             <div className="rates-details-period-datepicker-line">
-              <button className="button" onClick={ requestDetails }>
-                {dict.show}
-              </button>
+              <button className="button" onClick={ requestDetails }>{ dict.show }</button>
             </div>
           </div>
         </div> :

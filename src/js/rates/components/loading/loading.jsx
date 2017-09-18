@@ -6,7 +6,7 @@ class Loading extends React.Component {
 
     return (
       loading ?
-        <div>{dict.loading}</div> :
+        <div>{ dict.loading }</div> :
         null
     );
   }

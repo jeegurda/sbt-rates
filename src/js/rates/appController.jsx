@@ -81,16 +81,16 @@ export default class AppController extends React.Component {
 
     return (
       <div>
-        {this.settingsMap.map((set, i) =>
-          <div className="controller-block" key={i}>
-            <span>{dict[state.language][set.name]}</span>
-            <select onChange={ this.onSettingsChange.bind(this, set.name) } value={state[set.name]}>
-              {set.values.map((el, i) =>
-                <option value={el} key={i}>{dict[state.language][el]}</option>
-              )}
+        { this.settingsMap.map(set =>
+          <div className="controller-block" key={ set.name }>
+            <span>{ dict[state.language][set.name] }</span>
+            <select onChange={ this.onSettingsChange.bind(this, set.name) } value={ state[set.name] }>
+              { set.values.map(el =>
+                <option value={ el } key={ el }>{ dict[state.language][el] }</option>
+              ) }
             </select>
           </div>
-        )}
+        ) }
       </div>
     );
   }

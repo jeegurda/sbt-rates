@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import * as actions from '../../actions/';
 import * as utils from '../../utils';
 
-class AsideCurrencySelect extends React.Component {
+class CurrencySelect extends React.Component {
   render() {
     let { dict, ratesType, mode, data, selectCurrency } = this.props;
 
@@ -44,4 +44,4 @@ export default connect(
   dispatch => ({
     selectCurrency: e => dispatch(actions.selectCurrency(e)),
   })
-)(AsideCurrencySelect);
+)(CurrencySelect);

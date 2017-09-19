@@ -47,9 +47,5 @@ export default connect(
   state => ({
     viewMode: state.viewMode,
     mode: state.settings.mode
-  }),
-  dispatch => ({
-    validateInput: e => dispatch(actions.validateInput(e)),
-    requestDetails: () => dispatch(actions.requestDetails()),
   })
 )(Aside);

@@ -53,12 +53,14 @@ export let format = valueToFormat => {
   let formatted;
   if (typeof valueToFormat === 'string') {
     formatted = valueToFormat.replace(regExp.commas, '.').replace(regExp.spaces, '');
+  } else {
+    formatted = valueToFormat;
   }
 
-  if ($.isNumeric(valueToFormat)) {
-    formatted = parseFloat(valueToFormat).toFixed(2).replace('.', ',');
-
-    return formatted < 1000 ? formatted : formatted.replace(regExp.thousands, ' ');
+  if ($.isNumeric(formatted)) {
+    let numberValue = Number(formatted);
+    formatted = numberValue.toFixed(2).replace('.', ',');
+    return numberValue < 1000 ? formatted : formatted.replace(regExp.thousands, ' ');
   }
   return '—';
 };

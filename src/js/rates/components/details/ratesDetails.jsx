@@ -11,6 +11,8 @@ class Details extends React.Component {
       details = <DetailsHistory />;
     } else if (viewMode === 'table') {
       details = <DetailsTable />;
+    } else {
+      details = null;
     }
 
     return (

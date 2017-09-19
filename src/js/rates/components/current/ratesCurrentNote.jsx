@@ -16,7 +16,9 @@ class CurrentNote extends React.Component {
         <div className="current-rates-note rates-note">
           <strong>{ dict.currentNoteBold }</strong>
           <span>{ ' ' }</span>
+          { /* eslint-disable react/no-danger */ }
           <span dangerouslySetInnerHTML={ { __html: noteText.format(noteLink) } } />
+          { /* eslint-enable react/no-danger */ }
         </div>;
     } else {
       note = null;

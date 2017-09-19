@@ -4,10 +4,6 @@ import * as utils from '../../utils';
 import Item from './ratesDetailsHistoryItem';
 
 class DetailsHistoryGraphs extends React.Component {
-  componentDidUpdate() {
-    // Rates.initDatepicker(this.refs.filterDatepickerDetailsFrom);
-    // Rates.initDatepicker(this.refs.filterDatepickerDetailsTo);
-  }
   render() {
     let { data, printSection, mode } = this.props;
 

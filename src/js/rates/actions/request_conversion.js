@@ -3,7 +3,9 @@ import * as utils from '../utils';
 import _ from 'lodash';
 import u from 'updeep';
 
+import * as domUtils from '../dom_utils';
 import * as actions from './';
+import { scrollToResult } from '../scroll';
 
 export let requestConversion = () => (dispatch, getState) => {
   let state = getState();
@@ -29,10 +31,11 @@ export let requestConversion = () => (dispatch, getState) => {
   }
 
   return fetch(api('convert', params))
-    .then(res => res.ok ? res.text() : Promise.reject(res.text()))
-    .then(text => {
+    .then(res => res.ok ? res.json() : Promise.reject(res.json()))
+    .then(json => {
       let state = getState();
-      if ($.isNumeric(text)) {
+
+      if ($.isNumeric(json.amount)) {
         dispatch({
           type: 'SET_CONVERTER',
           payload: {
@@ -40,7 +43,7 @@ export let requestConversion = () => (dispatch, getState) => {
               from: state.converter.from,
               to: state.converter.to,
               amount: state.converter.amount,
-              value: text,
+              value: json.amount,
               valid: true
             }
           }
@@ -51,21 +54,23 @@ export let requestConversion = () => (dispatch, getState) => {
             converter: params
           }
         });
-      } else {
-        dispatch({
-          type: 'SET_CONVERTER',
-          payload: {
-            result: u({
-              valid: false
-            }, state.converter.result)
-          }
-        });
-        console.warn(`Rates: couldn't parse response "${text}"`);
+        return Promise.resolve();
       }
+
+      dispatch({
+        type: 'SET_CONVERTER',
+        payload: {
+          result: u({
+            valid: false
+          }, state.converter.result)
+        }
+      });
+      console.warn(`Rates: couldn't parse response "${json}"`);
+      return Promise.reject();
     })
     .catch(err => {
       let reject = genericError => {
-        console.warn(`Rates: failed to fetch "${api('rates')}" with params`, params, `: ${genericError}`);
+        console.warn(`Rates: failed to fetch "${api('convert')}" with params`, params, `: ${genericError}`);
         return Promise.reject(genericError);
       };
       err.then ? err.then(e => reject(e)) : reject(err);
@@ -75,6 +80,10 @@ export let requestConversion = () => (dispatch, getState) => {
 export let requestConversionAndScroll = () => dispatch => {
   dispatch(actions.requestConversion())
     .then(() => {
-      // scrollToResult();
+      scrollToResult( domUtils.getDOMElement('converterResult') );
+    })
+    .catch(() => {
+      // failed to request conversion or bad response
+      // need to add a visual warning
     });
 };

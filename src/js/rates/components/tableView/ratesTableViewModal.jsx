@@ -21,12 +21,17 @@ class TableViewModal extends React.Component {
     let Modal = ReactBootstrap.Modal;
 
     let itemData = data[tableView];
-    let lastDate;
-    let recordCounter = 0;
-    let limitReached = false;
+    let lastDate = null;
+    let dateRepeated = 0;
+    let records = 0;
 
     return (
-      <Modal show={ itemData } onRequestHide={ hideTableView } keyboard={ true } className="rates-table-view">
+      <Modal
+        bsClass="one modal"
+        show={ itemData }
+        onRequestHide={ hideTableView }
+        keyboard={ true }
+      >
         <div className="rates-table-view-close" onClick={ hideTableView }>
           <span>{ dict.tableViewClose }</span>
         </div>
@@ -64,16 +69,27 @@ class TableViewModal extends React.Component {
             </thead>
             <tbody>
               { itemData.ratesDated.map(el => {
-                let newRecord = el.activeFrom !== lastDate;
-                lastDate = el.activeFrom;
-
-                if (limitReached || newRecord && ++recordCounter > 200) {
-                  limitReached = true;
+                if (records > 200) {
                   return null;
                 }
 
+                let newRecord;
+                let key;
+
+                if (el.activeFrom === lastDate) {
+                  key = `${lastDate}-${dateRepeated}`;
+                  dateRepeated++;
+                } else {
+                  newRecord = true;
+                  key = el.activeFrom;
+                  dateRepeated = 0;
+                  records++;
+                }
+
+                lastDate = el.activeFrom;
+
                 return (
-                  <tr className={ newRecord ? 'rates-record' : null } key={ el.activeFrom }>
+                  <tr className={ newRecord ? 'rates-record' : null } key={ key }>
                     <td>{ newRecord ? moment(lastDate).format(dateFormat) : null }</td>
                     <td>{ newRecord ? moment(lastDate).format(timeFormat) : null }</td>
                     <td>{ newRecord ? itemData.scale : null }</td>

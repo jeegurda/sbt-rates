@@ -5,16 +5,12 @@ import ConverterPeriod from './ratesDetailsHistoryConverterPeriod';
 import HistoryGraphs from './ratesDetailsHistoryGraphs';
 
 class DetailsHistory extends React.Component {
-  componentDidUpdate() {
-    // Rates.initDatepicker(this.refs.filterDatepickerDetailsFrom);
-    // Rates.initDatepicker(this.refs.filterDatepickerDetailsTo);
-  }
   render() {
-    let { dict, ratesType, loaded } = this.props;
+    let { dict, ratesType, loaded, mode } = this.props;
 
     return (
       <div className="rates-details">
-        { loaded && <ConverterPeriod /> }
+        { loaded && mode === 'converter' && <ConverterPeriod /> }
         <HistoryGraphs />
         { loaded &&
           <div className="rates-details-availability-note">
@@ -35,5 +31,6 @@ export default connect(
     loaded: state.loaded,
     dict: state.settings.dict,
     ratesType: state.ratesType,
+    mode: state.settings.mode
   })
 )(DetailsHistory);

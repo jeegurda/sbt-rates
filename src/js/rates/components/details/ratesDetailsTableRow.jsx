@@ -5,7 +5,7 @@ class DetailsTableRow extends React.Component {
   render() {
     let { item, converterAmount } = this.props;
 
-    let ratesDetailed = utils.getCurrentRatesForAmount(item, converterAmount);
+    let ratesDetailed = utils.getCurrentRatesForAmount(item.ratesCurrentFull, converterAmount);
     let buyClassName = ratesDetailed.buyChange > 0 ?
       'rates-up' :
       ratesDetailed.buyChange < 0 ? 'rates-down' : 'rates-none';
@@ -15,24 +15,24 @@ class DetailsTableRow extends React.Component {
 
     return (
       <tr>
-        <td>{item.name}</td>
-        <td>{item.isoName}</td>
-        <td>{ratesDetailed.scale}</td>
+        <td>{ item.name }</td>
+        <td>{ item.isoName }</td>
+        <td>{ ratesDetailed.scale }</td>
         <td>
-          {typeof ratesDetailed.buyValue === 'number' ?
+          { typeof ratesDetailed.buyValue === 'number' ?
             [
               `${utils.format(ratesDetailed.buyValue)} (`,
-              <span className={buyClassName} key="0">{utils.format(ratesDetailed.buyChange)}</span>,
+              <span className={ buyClassName } key="0">{ utils.format(ratesDetailed.buyChange) }</span>,
               ')'
             ] :
             '—'
           }
         </td>
         <td>
-          {typeof ratesDetailed.sellValue === 'number' ?
+          { typeof ratesDetailed.sellValue === 'number' ?
             [
               `${utils.format(ratesDetailed.sellValue)} (`,
-              <span className={sellClassName} key="0">{utils.format(ratesDetailed.sellChange)}</span>,
+              <span className={ sellClassName } key="0">{ utils.format(ratesDetailed.sellChange) }</span>,
               ')'
             ] :
             '—'

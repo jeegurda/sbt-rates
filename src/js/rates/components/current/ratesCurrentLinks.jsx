@@ -9,16 +9,12 @@ class CurrentLinks extends React.Component {
     if (mode === 'metal') {
       links =
         <div className="current-links">
-          <a href={dict[`calculatorIncomeLink${utils.capitalize(language)}`]}>
-            {dict.calculatorIncome}
-          </a>
+          <a href={ dict[`calculatorIncomeLink${utils.capitalize(language)}`] }>{ dict.calculatorIncome }</a>
         </div>;
     } else if (mode === 'currency') {
       links =
         <div className="current-links">
-          <a href={dict[`calculatorLink${utils.capitalize(language)}`]}>
-            {dict.calculator}
-          </a>
+          <a href={ dict[`calculatorLink${utils.capitalize(language)}`] }>{ dict.calculator }</a>
         </div>;
     } else {
       links = null;

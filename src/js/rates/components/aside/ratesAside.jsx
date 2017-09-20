@@ -28,19 +28,17 @@ class Aside extends React.Component {
     let { viewMode, mode } = this.props;
 
     if (viewMode === 'table') {
-      filter = <AsideFilterTable/>;
+      filter = <AsideFilterTable />;
     } else if (viewMode === 'history') {
       if (mode === 'converter') {
-        filter = <AsideFilterConverter/>;
+        filter = <AsideFilterConverter />;
       } else {
-        filter = <AsideFilterRates/>;
+        filter = <AsideFilterRates />;
       }
     }
 
     return (
-      <aside className="rates-aside">
-        {filter}
-      </aside>
+      <aside className="rates-aside">{ filter }</aside>
     );
   }
 }
@@ -49,9 +47,5 @@ export default connect(
   state => ({
     viewMode: state.viewMode,
     mode: state.settings.mode
-  }),
-  dispatch => ({
-    validateInput: e => dispatch(actions.validateInput(e)),
-    requestDetails: () => dispatch(actions.requestDetails()),
   })
 )(Aside);

@@ -18,13 +18,13 @@ class RatesTabs extends React.Component {
 
     return (
       <ul className="rates-tabs rates-right">
-        { this.tabs.map((c, i) =>
+        { this.tabs.map(tab =>
           <li
-            className={viewMode === c ? 'active' : ''}
-            key={i}
-            onClick={ changeViewMode.bind(null, c) }
+            className={ viewMode === tab ? 'active' : '' }
+            key={ tab }
+            onClick={ changeViewMode.bind(null, tab) }
           >
-            <span>{dict[`tabMode${utils.capitalize(c)}`]}</span>
+            <span>{ dict[`tabMode${utils.capitalize(tab)}`] }</span>
           </li>
         ) }
       </ul>

@@ -2,28 +2,30 @@ import { connect } from 'react-redux';
 import * as actions from '../../actions/';
 import * as utils from '../../utils';
 
-class AsideCurrencySelect extends React.Component {
+class CurrencySelect extends React.Component {
   render() {
     let { dict, ratesType, mode, data, selectCurrency } = this.props;
 
+    // for currency mode and if at least one option isn't selected
+    let showSelect = ratesType !== 'first' &&
+      ratesType !== 'premium' &&
+      mode === 'currency' &&
+      utils.getCodes(data, 'display', true).length;
+
     return (
-      // for currency mode and if at least one option isn't selected
-      ratesType !== 'first' &&
-        ratesType !== 'premium' &&
-        mode === 'currency' &&
-        utils.getCodes(data, 'display', true).length ?
+      showSelect ?
 
         <div className="filter-block filter-block-currency-select">
           <div>
-            <h6>{dict.filterSelectCurrency}</h6>
+            <h6>{ dict.filterSelectCurrency }</h6>
           </div>
           <select
             ref={ node => this.currencySelect = node }
             onChange={ selectCurrency }
           >
-            {utils.getCodes(data, 'display', true).map((code, i) =>
-              <option key={i} value={code}>{data[code].name}</option>
-            )}
+            { utils.getCodes(data, 'display', true).map(code =>
+              <option key={ code } value={ code }>{ data[code].name }</option>
+            ) }
           </select>
         </div> :
 
@@ -42,4 +44,4 @@ export default connect(
   dispatch => ({
     selectCurrency: e => dispatch(actions.selectCurrency(e)),
   })
-)(AsideCurrencySelect);
+)(CurrencySelect);

@@ -22,9 +22,9 @@ class CurrentExchangeNote extends React.Component {
 
       exchangeNote =
         <div className="current-rates-note rates-note">
-          <span dangerouslySetInnerHTML={{
-            __html: dict.exchangeNote.format(exchangeNoteLink)
-          }}></span>
+          { /* eslint-disable react/no-danger */ }
+          <span dangerouslySetInnerHTML={ { __html: dict.exchangeNote.format(exchangeNoteLink) } } />
+          { /* eslint-enable react/no-danger */ }
         </div>;
     } else {
       exchangeNote = null;

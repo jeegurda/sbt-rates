@@ -3,20 +3,21 @@
   "version": "1.0.0",
   "description": "A React-redux widget for currency and metal rates provided by sberbank.ru",
   "main": "src/js/rates-app.js",
+  "repository": "https://github.com/asriyansh/sbt-rates/",
   "scripts": {
-    "dev": "webpack-dev-server --config webpack.dev.js --env.lint-config dev",
-    "dev-strict": "webpack-dev-server --config webpack.dev.js",
-    "build": "webpack --config webpack.dev.js",
-    "build-prod": "webpack --config webpack.prod.js"
+    "dev": "webpack-dev-server --progress --config webpack.dev.js --env.lint-config dev",
+    "dev-strict": "webpack-dev-server --progress --config webpack.dev.js",
+    "build": "webpack --progress --config webpack.dev.js",
+    "build-prod": "webpack --progress --config webpack.prod.js"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "babel-preset-minify": "^0.2.0",
-    "eslint": "^4.6.1",
+    "eslint": "^4.7.0",
+    "eslint-formatter-pretty": "^1.3.0",
     "eslint-loader": "^1.9.0",
-    "eslint-plugin-react": "^7.3.0",
-    "webpack-dev-server": "^2.7.1"
+    "webpack-dev-server": "^2.8.2"
   },
   "dependencies": {
     "babel-core": "^6.26.0",
@@ -26,21 +27,19 @@
     "babel-preset-env": "^1.6.0",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
-    "body-parser": "^1.17.2",
+    "body-parser": "^1.18.1",
     "clean-webpack-plugin": "^0.1.16",
     "css-loader": "^0.28.7",
-    "eslint-formatter-pretty": "^1.3.0",
+    "eslint-plugin-react": "^7.3.0",
     "extract-loader": "^1.0.1",
     "file-loader": "^0.11.2",
     "html-loader": "^0.5.1",
     "isomorphic-fetch": "^2.2.1",
-    "jquery-ui-dist": "^1.12.1",
     "lodash": "^4.17.4",
     "moment": "^2.18.1",
     "node-sass": "^4.5.3",
     "raw-loader": "^0.5.1",
     "react": "^15.6.1",
-    "react-dom": "^15.6.1",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
@@ -51,8 +50,7 @@
     "string-format": "^0.5.0",
     "style-loader": "^0.18.2",
     "updeep": "^1.0.0",
-    "webpack": "^3.5.5",
-    "webpack-merge": "^4.1.0",
-    "yargs": "^8.0.2"
+    "webpack": "^3.6.0",
+    "webpack-merge": "^4.1.0"
   }
 }

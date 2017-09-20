@@ -12,19 +12,19 @@ class DetailsHistoryItem extends React.Component {
       item.ratesDated === 'NODATA' || item.plot === null ?
 
         <div>
-          <div>{dict.noData}</div>
-          <div id={`plot-${code}`} className="details-item-plot plot-no-data"></div>
+          <div>{ dict.noData }</div>
+          <div id={ `plot-${code}` } className="details-item-plot plot-no-data" />
         </div> :
 
         <div className="scroll-content">
           <div className="rates-links">
             <div className="rl-left">
-              <span className="rl-print" onClick={ print.bind(null, code) }>{dict.print}</span>
-              <span onClick={ showTableView.bind(null, code) }>{dict.tableView}</span>
+              <span className="rl-print" onClick={ print.bind(null, code) }>{ dict.print }</span>
+              <span onClick={ showTableView.bind(null, code) }>{ dict.tableView }</span>
             </div>
-            <RangeSelect item={item} code={code}/>
+            <RangeSelect item={ item } code={ code } />
           </div>
-          <div id={`plot-${code}`} className="details-item-plot"></div>
+          <div id={ `plot-${code}` } className="details-item-plot" />
         </div>
     );
   }

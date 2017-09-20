@@ -21,66 +21,85 @@ class TableViewModal extends React.Component {
     let Modal = ReactBootstrap.Modal;
 
     let itemData = data[tableView];
-    let lastDate;
-    let recordCounter = 0;
-    let limitReached = false;
+    let lastDate = null;
+    let dateRepeated = 0;
+    let records = 0;
 
     return (
-      <Modal show={ itemData } onRequestHide={ hideTableView } keyboard={true} className="rates-table-view">
+      <Modal
+        bsClass="one modal"
+        show={ itemData }
+        onRequestHide={ hideTableView }
+        keyboard={ true }
+      >
         <div className="rates-table-view-close" onClick={ hideTableView }>
-          <span>{dict.tableViewClose}</span>
+          <span>{ dict.tableViewClose }</span>
         </div>
-        <h2>{`${dict.tableView}, ${itemData.isoName}`}</h2>
-        <a className="rates-table-view-download" href={ api('xls', {
-          currencyCode: tableView,
-          fromDate: ui.fromDate,
-          toDate: ui.toDate,
-          regionId,
-          categoryCode: ratesType,
-          rangesAmountFrom: itemData.ranges.map(el => el.amountFrom),
-          lang: language
-        }) }>
-          {dict.tableViewDownload}
+        <h2>{ `${dict.tableView}, ${itemData.isoName}` }</h2>
+        <a
+          className="rates-table-view-download"
+          href={ api('xls', {
+            currencyCode: tableView,
+            fromDate: ui.fromDate,
+            toDate: ui.toDate,
+            regionId,
+            categoryCode: ratesType,
+            rangesAmountFrom: itemData.ranges.map(el => el.amountFrom),
+            lang: language
+          }) }
+        >
+          { dict.tableViewDownload }
         </a>
-        <div ref={tableContainer => this.tableContainer = tableContainer} className="table-container">
-          <table ref={table => this.table = table}>
+        <div ref={ tableContainer => this.tableContainer = tableContainer } className="table-container">
+          <table ref={ table => this.table = table }>
             <thead>
               <tr>
-                {[
-                  dict.tableViewDate,
-                  dict.tableViewTime,
-                  dict.tableViewAmount,
-                  dict.tableViewFrom,
-                  dict.tableViewTo,
-                  dict.tableViewBuy,
-                  dict.tableViewSell
-                ].map((el, i) =>
-                  <th key={i}>{el}</th>
-                )}
+                { [
+                  'tableViewDate',
+                  'tableViewTime',
+                  'tableViewAmount',
+                  'tableViewFrom',
+                  'tableViewTo',
+                  'tableViewBuy',
+                  'tableViewSell',
+                ].map(el =>
+                  <th key={ el }>{ dict[el] }</th>
+                ) }
               </tr>
             </thead>
             <tbody>
-              {itemData.ratesDated.map((el, i) => {
-                let newRecord = el.activeFrom !== lastDate;
-                lastDate = el.activeFrom;
-
-                if (limitReached || newRecord && ++recordCounter > 200) {
-                  limitReached = true;
+              { itemData.ratesDated.map(el => {
+                if (records > 200) {
                   return null;
                 }
 
+                let newRecord;
+                let key;
+
+                if (el.activeFrom === lastDate) {
+                  key = `${lastDate}-${dateRepeated}`;
+                  dateRepeated++;
+                } else {
+                  newRecord = true;
+                  key = el.activeFrom;
+                  dateRepeated = 0;
+                  records++;
+                }
+
+                lastDate = el.activeFrom;
+
                 return (
-                  <tr className={newRecord ? 'rates-record' : null} key={i}>
-                    <td>{newRecord ? moment(lastDate).format(dateFormat) : null}</td>
-                    <td>{newRecord ? moment(lastDate).format(timeFormat) : null}</td>
-                    <td>{newRecord ? itemData.scale : null}</td>
-                    <td>{$.isNumeric(el.rangeFrom) ? el.rangeFrom : '—'}</td>
-                    <td>{$.isNumeric(el.rangeTo) ? el.rangeTo : '—'}</td>
-                    <td>{utils.format(el.buyValue)}</td>
-                    <td>{utils.format(el.sellValue)}</td>
+                  <tr className={ newRecord ? 'rates-record' : null } key={ key }>
+                    <td>{ newRecord ? moment(lastDate).format(dateFormat) : null }</td>
+                    <td>{ newRecord ? moment(lastDate).format(timeFormat) : null }</td>
+                    <td>{ newRecord ? itemData.scale : null }</td>
+                    <td>{ $.isNumeric(el.rangeFrom) ? el.rangeFrom : '—' }</td>
+                    <td>{ $.isNumeric(el.rangeTo) ? el.rangeTo : '—' }</td>
+                    <td>{ utils.format(el.buyValue) }</td>
+                    <td>{ utils.format(el.sellValue) }</td>
                   </tr>
                 );
-              })}
+              }) }
             </tbody>
           </table>
         </div>

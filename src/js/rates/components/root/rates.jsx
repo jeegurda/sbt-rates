@@ -19,7 +19,7 @@ import LoadingError from '../loading/loadingError';
 class Rates extends React.Component {
   constructor(props) {
     super(props);
-    let { dispatch } = this.props;
+    let { dispatch, settings } = this.props;
 
     /*
 
@@ -29,10 +29,21 @@ class Rates extends React.Component {
     this.plugins = {select, popup};
     */
 
-    dispatch(actions.init(this.props.settings));
+    dispatch(actions.init(settings));
 
     dispatch(actions.initUI());
     dispatch(actions.addDOMEvents());
+  }
+  componentDidMount() {
+    /*var self = this;
+
+    $(document.body)
+      .on('click', '.filter-datepicker-trigger', function() {
+        $(this).prev('input').focus();
+      })
+      .on('click', '.converter-datepicker-hide', function() {
+        $(self.DOM.converterDate).datepicker('hide');
+      });*/
   }
   initDatepicker(el) {
     let that = this;
@@ -94,24 +105,12 @@ class Rates extends React.Component {
       } });
     }
   }
-  componentDidMount() {
-    /*var self = this;
-
-    $(document.body)
-      .on('click', '.filter-datepicker-trigger', function() {
-        $(this).prev('input').focus();
-      })
-      .on('click', '.converter-datepicker-hide', function() {
-        $(self.DOM.converterDate).datepicker('hide');
-      });*/
-
-  }
   render() {
     return (
       <div className="widget-rates">
-        <LoadingError/>
-        <Loading/>
-        <Content/>
+        <LoadingError />
+        <Loading />
+        <Content />
       </div>
     );
   }

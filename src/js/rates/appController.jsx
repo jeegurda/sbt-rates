@@ -61,7 +61,7 @@ export default class AppController extends React.Component {
 
     this.setState({ [name]: value }, () => {
       // if a language parameter was changed, the whole app has be to be reloaded
-      // this is a sberbank-specific app loading behavior, global parameters can't be changed "on fly"
+      // this is a app-specific loading behavior, global parameters can't be changed "on fly"
       if (name === 'language') {
         loadApp({ lang: value }, this.state);
       } else {

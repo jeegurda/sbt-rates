@@ -12,17 +12,6 @@ const host = 'http://www.sberbank.ru';
 
 const cliUrl = 'http://localhost:3000/';
 
-// subroutes, useful for mocks
-mockRouter.get('/static', (req, res) => {
-  res.json({
-    a: 1,
-    b: 2
-  });
-});
-mockRouter.get('/staticBad', (req, res) => {
-  res.send('bad response');
-});
-
 server.use(bodyParser.json());
 
 server.use('/api', mockRouter, (req, res) => {

@@ -4,23 +4,10 @@ const webpack = require('webpack');
 
 module.exports = env => {
   let eslintConfig = env && env['lint-config'] === 'dev' ? 'dev' : 'strict';
-  let libs = [
-    'babel-polyfill',
-    'isomorphic-fetch',
-    'lodash',
-    'updeep',
-    'moment',
-    'redux',
-    'react-redux',
-    'redux-logger',
-    'redux-thunk'
-  ];
 
   return {
-    entry: {
-      libs,
-      rates: './src/js/rates-app.js'
-    },
+    // entry is located in dev/prod files
+    
     output: {
       filename: '[name].js',
       chunkFilename: '[name].js',
@@ -92,7 +79,7 @@ module.exports = env => {
     stats: {
       modules: false,
       moduleTrace: false,
-      assetsSort: "name"
+      assetsSort: 'name'
     }
   }
 };

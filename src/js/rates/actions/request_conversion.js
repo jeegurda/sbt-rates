@@ -73,7 +73,7 @@ export let requestConversion = () => (dispatch, getState) => {
         console.warn(`Rates: failed to fetch "${api('convert')}" with params`, params, `: ${genericError}`);
         return Promise.reject(genericError);
       };
-      err.then ? err.then(e => reject(e)) : reject(err);
+      return err.then ? err.then(e => reject(e)) : reject(err);
     });
 };
 

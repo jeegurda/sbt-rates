@@ -4,7 +4,10 @@ const webpack = require('webpack');
 
 const MinifyPlugin = require("babel-minify-webpack-plugin");
 
-module.exports = merge(common, {
+const entry = require('./webpack.entry')();
+
+module.exports = env => merge(common(env), {
+  entry,
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {

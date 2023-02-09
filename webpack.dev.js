@@ -2,7 +2,10 @@ const merge = require('webpack-merge');
 const common = require('./webpack.common.js');
 const webpack = require('webpack');
 
+const entry = require('./webpack.entry')(true);
+
 module.exports = env => merge(common(env), {
+  entry,
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
@@ -24,6 +27,7 @@ module.exports = env => merge(common(env), {
     stats: {
       modules: false,
       moduleTrace: false,
+      assetsSort: 'name'
     }
   },
 });

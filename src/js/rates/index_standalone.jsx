@@ -1,5 +1,5 @@
 import api from './api';
-import { applyMiddleware, combineReducers, createStore } from 'redux';
+import { applyMiddleware, combineReducers, createStore, compose } from 'redux';
 import { Provider } from 'react-redux';
 import { createLogger } from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
@@ -63,7 +63,12 @@ let loadApp = ({ lang = 'ru' } = {}, additionalSettings = {}) =>
       settings.dict = { ...settings.dict, ...json[appName] };
 
       let reducer = combineReducers(reducers);
-      let store = createStore(reducer, applyMiddleware(thunkMiddleware, logger));
+
+      let composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMOSE__ || compose;
+      let store = createStore(reducer, composeEnhancers(
+        applyMiddleware(thunkMiddleware, logger)
+      ));
+
       shared.store = store;
 
       ReactDOM.unmountComponentAtNode(appNode);
